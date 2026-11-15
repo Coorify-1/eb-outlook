@@ -41,7 +41,8 @@ jobs:
       - name: Run engine
         timeout-minutes: 40
         run: |
-          if [ "${{ inputs.rebuild }}" = "true" ]; then
+          # a change to the engine or the theme list recomputes this quarter
+          if [ "${{ inputs.rebuild }}" = "true" ] || [ "${{ github.event_name }}" = "push" ]; then
             python engine.py --rebuild
           else
             python engine.py

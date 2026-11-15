@@ -194,10 +194,10 @@ def fetch_fred(series: str) -> pd.Series | None:
         rng = np.random.default_rng(abs(hash(series)) % (2**32))
         return pd.Series(4 + np.cumsum(rng.normal(0, 0.03, len(idx))), index=idx)
     url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series}"
-    for attempt in range(3):
+    for attempt in range(2):
         try:
             req = urllib.request.Request(url, headers=UA)
-            with urllib.request.urlopen(req, timeout=40) as r:
+            with urllib.request.urlopen(req, timeout=20) as r:
                 df = pd.read_csv(io.BytesIO(r.read()), na_values=".")
             df.columns = ["date", "v"]
             s = pd.Series(pd.to_numeric(df["v"], errors="coerce").values,
@@ -207,6 +207,36 @@ def fetch_fred(series: str) -> pd.Series | None:
             log("FRED", series, "attempt", attempt + 1, "failed:", e)
             time.sleep(3)
     return None
+
+
+# Macro from Yahoo Finance (reliable from GitHub). FRED is the fallback.
+YAHOO_MACRO = {"rates": "^TNX", "short": "^IRX", "oil": "CL=F", "dollar": "DX-Y.NYB",
+               "hy": "HYG", "tsy": "IEF"}
+
+
+def macro_series(start: str) -> dict[str, pd.Series | None]:
+    out: dict[str, pd.Series | None] = {}
+    try:
+        px = fetch_prices(list(YAHOO_MACRO.values()), start).sort_index()
+        g = lambda k: px[YAHOO_MACRO[k]].dropna() if YAHOO_MACRO[k] in px.columns else None
+        out["rates"] = g("rates")                     # 10-year Treasury yield, %
+        out["oil"] = g("oil")                         # WTI crude, $
+        out["dollar"] = g("dollar")                   # US dollar index
+        hy, tsy = g("hy"), g("tsy")
+        if hy is not None and tsy is not None and len(hy) and len(tsy):
+            # credit stress: high-yield bonds lagging Treasuries (higher = more stress)
+            out["credit"] = (-np.log(hy / tsy.reindex(hy.index, method="ffill"))).dropna()
+        sh = g("short")
+        if out["rates"] is not None and sh is not None and len(sh):
+            out["curve"] = (out["rates"] - sh.reindex(out["rates"].index, method="ffill")).dropna()
+    except Exception as e:  # noqa: BLE001
+        log("Yahoo macro failed:", e)
+    for k, sid in FRED.items():
+        if out.get(k) is None or len(out[k]) < 300:
+            log("macro", k, "from FRED")
+            out[k] = fetch_fred(sid)
+    log("macro series:", {k: (0 if v is None else len(v)) for k, v in out.items()})
+    return out
 
 
 # ------------------------------------------------------------------ data: news (GDELT)
@@ -612,7 +642,7 @@ def main():
     last_ts = cal[-1]                       # latest close available
     log("quarter", q_label(y, q), "asOf", asof_ts.date(), "latest", last_ts.date())
 
-    fred = {k: fetch_fred(s) for k, s in FRED.items()}
+    fred = macro_series(start)
 
     state = None
     if state_file.exists() and not args.rebuild:
@@ -734,7 +764,7 @@ def main():
         "method": state["method"],
         "themes": themes,
         "track": {"last": track[-1] if track else None, "history": track, "cumulative": cum},
-        "sources": "Yahoo Finance, FRED, GDELT",
+        "sources": "Yahoo Finance, GDELT" if state["method"].get("news") else "Yahoo Finance",
     }
     tmp = OUT.with_suffix(".tmp")
     tmp.write_text(json.dumps(feed, separators=(",", ":"), allow_nan=False))
