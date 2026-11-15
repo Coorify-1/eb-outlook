@@ -4,7 +4,7 @@
  "start": "2026-10-01",
  "end": "2026-12-31",
  "asOf": "2026-09-30",
- "generated": "2026-11-15T22:21:06Z",
+ "generated": "2026-11-15T22:32:15Z",
  "method": {
   "weights": {
    "momentum": 33,
@@ -324,11 +324,11 @@
    "watch": [
     {
      "t": "Helped by higher oil prices",
-     "now": "flat"
+     "now": "up"
     },
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [],
@@ -481,7 +481,7 @@
    "watch": [
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     }
    ],
    "notes": [
@@ -565,11 +565,11 @@
    "watch": [
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     },
     {
      "t": "Hurt by higher oil prices",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [
@@ -650,11 +650,11 @@
    "watch": [
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     },
     {
      "t": "Hurt by rising interest rates",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [],
@@ -807,7 +807,7 @@
    "watch": [
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [],
@@ -967,7 +967,7 @@
    "watch": [
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [],
@@ -1044,11 +1044,11 @@
    "watch": [
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     },
     {
      "t": "Hurt by higher oil prices",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [
@@ -1128,11 +1128,11 @@
    "watch": [
     {
      "t": "Helped by higher oil prices",
-     "now": "flat"
+     "now": "up"
     },
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [],
@@ -1209,7 +1209,7 @@
    "watch": [
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     }
    ],
    "notes": [
@@ -1285,7 +1285,7 @@
    "watch": [
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     }
    ],
    "notes": [],
@@ -1503,11 +1503,11 @@
    "watch": [
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     },
     {
      "t": "Helped by rising interest rates",
-     "now": "flat"
+     "now": "up"
     }
    ],
    "notes": [],
@@ -1576,11 +1576,11 @@
    "watch": [
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     },
     {
      "t": "Helped by higher oil prices",
-     "now": "flat"
+     "now": "up"
     }
    ],
    "notes": [],
@@ -1649,7 +1649,7 @@
    "watch": [
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [],
@@ -1730,7 +1730,7 @@
     },
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     }
    ],
    "notes": [
@@ -1818,7 +1818,7 @@
     },
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [
@@ -1895,7 +1895,7 @@
    "watch": [
     {
      "t": "Hurt by higher oil prices",
-     "now": "flat"
+     "now": "dn"
     },
     {
      "t": "Helped by a stronger US dollar",
@@ -1979,11 +1979,11 @@
    "watch": [
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     },
     {
      "t": "Hurt by higher oil prices",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [
@@ -2062,7 +2062,7 @@
    "watch": [
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [],
@@ -2290,11 +2290,11 @@
    "watch": [
     {
      "t": "Holds up when credit stress rises",
-     "now": "flat"
+     "now": "dn"
     },
     {
      "t": "Helped by higher oil prices",
-     "now": "flat"
+     "now": "up"
     }
    ],
    "notes": [],
@@ -2430,7 +2430,7 @@
    "watch": [
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     }
    ],
    "notes": [
@@ -2506,11 +2506,11 @@
    "watch": [
     {
      "t": "Hurt by higher oil prices",
-     "now": "flat"
+     "now": "dn"
     },
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     }
    ],
    "notes": [
@@ -2582,11 +2582,11 @@
    "watch": [
     {
      "t": "Hurt when credit stress rises",
-     "now": "flat"
+     "now": "up"
     },
     {
      "t": "Hurt by rising interest rates",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [],
@@ -2727,7 +2727,7 @@
    "watch": [
     {
      "t": "Hurt by higher oil prices",
-     "now": "flat"
+     "now": "dn"
     },
     {
      "t": "Hurt by a stronger US dollar",
@@ -3048,11 +3048,11 @@
    "watch": [
     {
      "t": "Hurt by rising interest rates",
-     "now": "flat"
+     "now": "dn"
     },
     {
      "t": "Hurt by higher oil prices",
-     "now": "flat"
+     "now": "dn"
     }
    ],
    "notes": [],
