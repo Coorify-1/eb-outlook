@@ -429,7 +429,8 @@ def macro_scores(idx: pd.DataFrame, bench: pd.Series, fred: dict, asof_ts: pd.Ti
         for k, b, s in sorted(zip(Z.columns, beta, se), key=lambda z: -abs(z[1] / (z[2] or 1))):
             if s and abs(b / s) >= 2 and len(w) < 2:
                 txt = MACRO_TEXT[k][0 if b > 0 else 1]
-                now = "up" if b * recent[k] > 0.05 else "dn" if b * recent[k] < -0.05 else "flat"
+                # factor moved clearly (half a usual 13-week move or more) in the last quarter
+                now = "flat" if abs(recent[k]) < 0.5 else ("up" if b * recent[k] > 0 else "dn")
                 w.append({"t": txt, "now": now})
         watch[tid] = w
     return tail, watch
