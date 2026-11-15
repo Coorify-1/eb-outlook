@@ -6,6 +6,10 @@ on:
     - cron: "30 0 1 1,4,7,10 *"
     # Weekly refresh of performance: Monday 12:00 UTC (7:00 am New York in winter)
     - cron: "0 12 * * 1"
+  # Also runs when the engine or the theme list changes
+  push:
+    branches: [main]
+    paths: ["engine.py", "themes.json", "requirements.txt", ".github/workflows/outlook.yml"]
   workflow_dispatch:
     inputs:
       rebuild:
