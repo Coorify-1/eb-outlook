@@ -57,6 +57,7 @@ PILLARS = [
 ]
 TOP_N = 5
 CORR_MAX = 0.85          # two picks may not move together more than this (1y weekly returns)
+NEWS_BUDGET_S = 600     # max seconds spent on GDELT per run
 MIN_DAYS = 273           # ~13 months of trading days needed to score a theme
 TD = {"m1": 21, "m3": 63, "m6": 126, "m12": 252}
 
@@ -233,10 +234,10 @@ def gdelt_timeline(query: str, mode: str, start: dt.date, end: dt.date) -> pd.Se
         "enddatetime": end.strftime("%Y%m%d") + "235959",
     }
     url = "https://api.gdeltproject.org/api/v2/doc/doc?" + urllib.parse.urlencode(params)
-    for attempt in range(2):
+    for attempt in range(1):
         try:
             req = urllib.request.Request(url, headers=UA)
-            with urllib.request.urlopen(req, timeout=60) as r:
+            with urllib.request.urlopen(req, timeout=20) as r:
                 raw = r.read().decode("utf-8", "ignore")
             j = json.loads(raw)
             data = (j.get("timeline") or [{}])[0].get("data") or []
@@ -246,8 +247,7 @@ def gdelt_timeline(query: str, mode: str, start: dt.date, end: dt.date) -> pd.Se
                           index=pd.to_datetime([d["date"][:8] for d in data]))
             return s
         except Exception as e:  # noqa: BLE001
-            log("GDELT", mode, query[:40], "attempt", attempt + 1, "failed:", str(e)[:120])
-            time.sleep(8)
+            log("GDELT", mode, query[:40], "failed:", str(e)[:120])
     return None
 
 
@@ -256,7 +256,18 @@ def news_signals(themes: list[dict], asof: dt.date) -> dict[str, dict]:
     start = asof - dt.timedelta(days=89)
     mid = asof - dt.timedelta(days=29)
     out = {}
+    t0 = time.time()
+    tried = 0
     for th in themes:
+        # Never let the news step block the run: 10-minute budget, and stop early
+        # if GDELT does not answer for the first themes.
+        if time.time() - t0 > NEWS_BUDGET_S:
+            log("news: time budget reached, remaining themes get a neutral score")
+            break
+        if tried >= 5 and not out:
+            log("news: GDELT not answering, News pillar skipped this quarter")
+            break
+        tried += 1
         q = news_query(th)
         tone = gdelt_timeline(q, "timelinetone", start, asof)
         time.sleep(0 if SYNTHETIC else 6)  # GDELT asks for max one request every 5 s
