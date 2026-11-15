@@ -1,0 +1,2689 @@
+{
+ "quarter": "Q4 2026",
+ "key": "2026-Q4",
+ "start": "2026-10-01",
+ "end": "2026-12-31",
+ "asOf": "2026-09-30",
+ "generated": "2026-11-15T22:16:53Z",
+ "method": {
+  "weights": {
+   "momentum": 38,
+   "trend": 25,
+   "strength": 19,
+   "risk": 19
+  },
+  "news": false,
+  "macro": false,
+  "corrMax": 0.85,
+  "universe": 38
+ },
+ "used": {
+  "ai": [
+   "AIQ",
+   "IGPT"
+  ],
+  "semis": [
+   "SMH",
+   "SOXX"
+  ],
+  "cyber": [
+   "CIBR",
+   "HACK"
+  ],
+  "cloud": [
+   "SKYY",
+   "SRVR"
+  ],
+  "quantum": [
+   "QTUM"
+  ],
+  "robotics": [
+   "ROBO",
+   "BOTZ"
+  ],
+  "space": [
+   "UFO",
+   "ARKX"
+  ],
+  "gaming": [
+   "ESPO",
+   "HERO"
+  ],
+  "fintech": [
+   "FINX",
+   "V",
+   "MA"
+  ],
+  "nuclear": [
+   "URA",
+   "NLR"
+  ],
+  "clean": [
+   "ICLN",
+   "TAN"
+  ],
+  "oilgas": [
+   "IXC"
+  ],
+  "minerals": [
+   "REMX",
+   "PICK",
+   "COPX"
+  ],
+  "batteries": [
+   "LIT"
+  ],
+  "gold": [
+   "GLD",
+   "GDX"
+  ],
+  "water": [
+   "PHO",
+   "CGW"
+  ],
+  "utilities": [
+   "JXI"
+  ],
+  "defense": [
+   "ITA",
+   "XAR",
+   "RHM.DE",
+   "HO.PA",
+   "LDO.MI"
+  ],
+  "infra": [
+   "PAVE",
+   "IGF"
+  ],
+  "electro": [
+   "GRID",
+   "ETN",
+   "SU.PA",
+   "SIE.DE",
+   "ABBN.SW"
+  ],
+  "auto": [
+   "CARZ",
+   "DRIV"
+  ],
+  "transport": [
+   "IYT"
+  ],
+  "homebuild": [
+   "XHB",
+   "ITB"
+  ],
+  "health": [
+   "IXJ"
+  ],
+  "biotech": [
+   "XBI",
+   "IBB"
+  ],
+  "pharma": [
+   "PPH"
+  ],
+  "medtech": [
+   "IHI"
+  ],
+  "hospitality": [
+   "MAR",
+   "HLT",
+   "H",
+   "AC.PA",
+   "BKNG"
+  ],
+  "airlines": [
+   "JETS"
+  ],
+  "restaurants": [
+   "MCD",
+   "CMG",
+   "YUM",
+   "SBUX",
+   "QSR",
+   "DRI"
+  ],
+  "luxury": [
+   "MC.PA",
+   "RMS.PA",
+   "CFR.SW",
+   "UHR.SW"
+  ],
+  "fashion": [
+   "ITX.MC",
+   "NKE",
+   "ADS.DE",
+   "9983.T",
+   "HM-B.ST"
+  ],
+  "ecommerce": [
+   "IBUY",
+   "EBIZ"
+  ],
+  "staples": [
+   "KXI"
+  ],
+  "agri": [
+   "MOO"
+  ],
+  "banks": [
+   "KBWB",
+   "EUFN"
+  ],
+  "insurance": [
+   "KIE"
+  ],
+  "realestate": [
+   "REET"
+  ]
+ },
+ "themes": [
+  {
+   "id": "biotech",
+   "name": "Biotech",
+   "category": "Health",
+   "icon": "dna",
+   "rank": 1,
+   "topRank": 1,
+   "score": 85.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 92.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 89.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 89.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 62.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 24.4,
+    "mdd": -9.3,
+    "beta": 0.89,
+    "worstMonth": -4.0,
+    "dist200": 15.3,
+    "corr": 0.52
+   },
+   "tags": [
+    {
+     "t": "Strong momentum",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    },
+    {
+     "t": "Beating the market",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "XBI",
+     "n": "SPDR S&P Biotech ETF"
+    },
+    {
+     "t": "IBB",
+     "n": "iShares Biotechnology ETF"
+    }
+   ]
+  },
+  {
+   "id": "cyber",
+   "name": "Cybersecurity",
+   "category": "Technology",
+   "icon": "lock",
+   "rank": 2,
+   "topRank": 2,
+   "score": 84.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 95.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 97.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 97.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 30.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 29.9,
+    "mdd": -21.0,
+    "beta": 0.84,
+    "worstMonth": -6.7,
+    "dist200": 30.5,
+    "corr": 0.4
+   },
+   "tags": [
+    {
+     "t": "Beating the market",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    },
+    {
+     "t": "Stretched",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Far above its 200-day average: pullbacks are common after big runs."
+   ],
+   "proxies": [
+    {
+     "t": "CIBR",
+     "n": "First Trust NASDAQ Cybersecurity ETF"
+    },
+    {
+     "t": "HACK",
+     "n": "Amplify Cybersecurity ETF"
+    }
+   ]
+  },
+  {
+   "id": "oilgas",
+   "name": "Oil & Gas",
+   "category": "Energy & Resources",
+   "icon": "flame",
+   "rank": 3,
+   "topRank": 3,
+   "score": 82.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 76.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 89.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 100.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 65.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 20.5,
+    "mdd": -15.4,
+    "beta": -0.22,
+    "worstMonth": -9.0,
+    "dist200": 9.3,
+    "corr": -0.16
+   },
+   "tags": [
+    {
+     "t": "Beating the market",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    },
+    {
+     "t": "Strong momentum",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "IXC",
+     "n": "iShares Global Energy ETF"
+    }
+   ]
+  },
+  {
+   "id": "ai",
+   "name": "Artificial Intelligence",
+   "category": "Technology",
+   "icon": "ai",
+   "rank": 4,
+   "topRank": 4,
+   "score": 79.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 97.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 96.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 76.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 22.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 33.4,
+    "mdd": -20.7,
+    "beta": 2.0,
+    "worstMonth": -10.4,
+    "dist200": 21.0,
+    "corr": 0.85
+   },
+   "tags": [
+    {
+     "t": "Strong momentum",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    },
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "AIQ",
+     "n": "Global X Artificial Intelligence & Technology ETF"
+    },
+    {
+     "t": "IGPT",
+     "n": "Invesco AI and Next Gen Software ETF"
+    }
+   ]
+  },
+  {
+   "id": "banks",
+   "name": "Banks",
+   "category": "Finance",
+   "icon": "bank",
+   "rank": 5,
+   "topRank": 5,
+   "score": 73.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 78.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 73.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 65.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 73.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 18.5,
+    "mdd": -14.7,
+    "beta": 0.99,
+    "worstMonth": -7.0,
+    "dist200": 2.3,
+    "corr": 0.76
+   },
+   "tags": [
+    {
+     "t": "Strong momentum",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "KBWB",
+     "n": "Invesco KBW Bank ETF"
+    },
+    {
+     "t": "EUFN",
+     "n": "iShares MSCI Europe Financials ETF"
+    }
+   ]
+  },
+  {
+   "id": "cloud",
+   "name": "Cloud & Data Centers",
+   "category": "Technology",
+   "icon": "cloud",
+   "rank": 6,
+   "topRank": null,
+   "score": 73.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 68.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 76.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 86.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 68.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 19.7,
+    "mdd": -14.8,
+    "beta": 0.97,
+    "worstMonth": -10.1,
+    "dist200": 7.0,
+    "corr": 0.7
+   },
+   "tags": [
+    {
+     "t": "Beating the market",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "SKYY",
+     "n": "First Trust Cloud Computing ETF"
+    },
+    {
+     "t": "SRVR",
+     "n": "Pacer Data & Infrastructure Real Estate ETF"
+    }
+   ]
+  },
+  {
+   "id": "pharma",
+   "name": "Pharmaceuticals",
+   "category": "Health",
+   "icon": "pill",
+   "rank": 7,
+   "topRank": null,
+   "score": 73.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 73.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 70.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 70.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 78.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 18.6,
+    "mdd": -10.8,
+    "beta": 0.3,
+    "worstMonth": -5.8,
+    "dist200": 3.1,
+    "corr": 0.23
+   },
+   "tags": [
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "PPH",
+     "n": "VanEck Pharmaceutical ETF"
+    }
+   ]
+  },
+  {
+   "id": "semis",
+   "name": "Semiconductors",
+   "category": "Technology",
+   "icon": "chip",
+   "rank": 8,
+   "topRank": null,
+   "score": 73.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 100.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 99.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 54.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 3.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 42.9,
+    "mdd": -26.8,
+    "beta": 2.38,
+    "worstMonth": -14.3,
+    "dist200": 24.3,
+    "corr": 0.79
+   },
+   "tags": [
+    {
+     "t": "Strong momentum",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    },
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "SMH",
+     "n": "VanEck Semiconductor ETF"
+    },
+    {
+     "t": "SOXX",
+     "n": "iShares Semiconductor ETF"
+    }
+   ]
+  },
+  {
+   "id": "electro",
+   "name": "Electrification & Grid",
+   "category": "Industry",
+   "icon": "bolt",
+   "rank": 9,
+   "topRank": null,
+   "score": 72.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 81.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 81.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 68.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 46.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 27.3,
+    "mdd": -14.8,
+    "beta": 1.42,
+    "worstMonth": -11.4,
+    "dist200": 6.2,
+    "corr": 0.74
+   },
+   "tags": [
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    },
+    {
+     "t": "Strong momentum",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "GRID",
+     "n": "First Trust NASDAQ Clean Edge Smart Grid Infrastructure ETF"
+    },
+    {
+     "t": "ETN",
+     "n": "Eaton"
+    },
+    {
+     "t": "SU.PA",
+     "n": "Schneider Electric"
+    },
+    {
+     "t": "SIE.DE",
+     "n": "Siemens"
+    },
+    {
+     "t": "ABBN.SW",
+     "n": "ABB"
+    }
+   ]
+  },
+  {
+   "id": "health",
+   "name": "Healthcare",
+   "category": "Health",
+   "icon": "cross",
+   "rank": 10,
+   "topRank": null,
+   "score": 71.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 65.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 62.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 84.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 84.0
+    }
+   ],
+   "risk": {
+    "level": "low",
+    "vol": 15.7,
+    "mdd": -10.8,
+    "beta": 0.35,
+    "worstMonth": -6.7,
+    "dist200": 4.7,
+    "corr": 0.31
+   },
+   "tags": [
+    {
+     "t": "Beating the market",
+     "tone": "up"
+    },
+    {
+     "t": "Low volatility",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "IXJ",
+     "n": "iShares Global Healthcare ETF"
+    }
+   ]
+  },
+  {
+   "id": "quantum",
+   "name": "Quantum Computing",
+   "category": "Technology",
+   "icon": "quantum",
+   "rank": 11,
+   "topRank": null,
+   "score": 69.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 89.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 89.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 49.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 24.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 32.9,
+    "mdd": -21.5,
+    "beta": 1.98,
+    "worstMonth": -11.9,
+    "dist200": 13.4,
+    "corr": 0.85
+   },
+   "tags": [
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    },
+    {
+     "t": "Strong momentum",
+     "tone": "up"
+    },
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "QTUM",
+     "n": "Defiance Quantum ETF"
+    }
+   ]
+  },
+  {
+   "id": "agri",
+   "name": "Agriculture",
+   "category": "Consumer",
+   "icon": "leaf",
+   "rank": 12,
+   "topRank": null,
+   "score": 65.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 43.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 68.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 81.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 86.0
+    }
+   ],
+   "risk": {
+    "level": "low",
+    "vol": 14.7,
+    "mdd": -11.2,
+    "beta": 0.39,
+    "worstMonth": -5.4,
+    "dist200": 0.0,
+    "corr": 0.37
+   },
+   "tags": [
+    {
+     "t": "Low volatility",
+     "tone": "up"
+    },
+    {
+     "t": "Beating the market",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "MOO",
+     "n": "VanEck Agribusiness ETF"
+    }
+   ]
+  },
+  {
+   "id": "auto",
+   "name": "Automotive & EVs",
+   "category": "Industry",
+   "icon": "car",
+   "rank": 13,
+   "topRank": null,
+   "score": 62.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 86.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 78.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 24.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 27.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 30.8,
+    "mdd": -23.1,
+    "beta": 1.92,
+    "worstMonth": -11.0,
+    "dist200": 3.1,
+    "corr": 0.89
+   },
+   "tags": [
+    {
+     "t": "Strong momentum",
+     "tone": "up"
+    },
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    },
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "CARZ",
+     "n": "First Trust S-Network Future Vehicles & Technology ETF"
+    },
+    {
+     "t": "DRIV",
+     "n": "Global X Autonomous & Electric Vehicles ETF"
+    }
+   ]
+  },
+  {
+   "id": "realestate",
+   "name": "Real Estate",
+   "category": "Finance",
+   "icon": "building",
+   "rank": 14,
+   "topRank": null,
+   "score": 55.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 41.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 49.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 46.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 100.0
+    }
+   ],
+   "risk": {
+    "level": "low",
+    "vol": 12.2,
+    "mdd": -10.0,
+    "beta": 0.38,
+    "worstMonth": -7.2,
+    "dist200": -2.4,
+    "corr": 0.44
+   },
+   "tags": [
+    {
+     "t": "Low volatility",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "REET",
+     "n": "iShares Global REIT ETF"
+    }
+   ]
+  },
+  {
+   "id": "minerals",
+   "name": "Strategic Minerals",
+   "category": "Energy & Resources",
+   "icon": "gem",
+   "rank": 15,
+   "topRank": null,
+   "score": 55.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 84.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 49.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 51.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 8.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 40.1,
+    "mdd": -24.2,
+    "beta": 2.09,
+    "worstMonth": -15.0,
+    "dist200": -7.7,
+    "corr": 0.74
+   },
+   "tags": [
+    {
+     "t": "Strong momentum",
+     "tone": "up"
+    },
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "REMX",
+     "n": "VanEck Rare Earth and Strategic Metals ETF"
+    },
+    {
+     "t": "PICK",
+     "n": "iShares MSCI Global Metals & Mining Producers ETF"
+    },
+    {
+     "t": "COPX",
+     "n": "Global X Copper Miners ETF"
+    }
+   ]
+  },
+  {
+   "id": "insurance",
+   "name": "Insurance",
+   "category": "Finance",
+   "icon": "umbrella",
+   "rank": 16,
+   "topRank": null,
+   "score": 53.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 49.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 47.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 43.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 81.0
+    }
+   ],
+   "risk": {
+    "level": "low",
+    "vol": 17.2,
+    "mdd": -11.8,
+    "beta": 0.04,
+    "worstMonth": -7.1,
+    "dist200": -0.9,
+    "corr": 0.03
+   },
+   "tags": [
+    {
+     "t": "Low volatility",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "KIE",
+     "n": "SPDR S&P Insurance ETF"
+    }
+   ]
+  },
+  {
+   "id": "transport",
+   "name": "Transport & Logistics",
+   "category": "Industry",
+   "icon": "truck",
+   "rank": 17,
+   "topRank": null,
+   "score": 53.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 62.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 51.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 19.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 70.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 20.1,
+    "mdd": -12.6,
+    "beta": 0.83,
+    "worstMonth": -8.6,
+    "dist200": -2.9,
+    "corr": 0.59
+   },
+   "tags": [],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "IYT",
+     "n": "iShares U.S. Transportation ETF"
+    }
+   ]
+  },
+  {
+   "id": "gold",
+   "name": "Gold & Precious Metals",
+   "category": "Energy & Resources",
+   "icon": "coin",
+   "rank": 18,
+   "topRank": null,
+   "score": 51.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 54.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 46.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 95.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 5.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 39.1,
+    "mdd": -31.8,
+    "beta": 1.48,
+    "worstMonth": -16.3,
+    "dist200": -5.6,
+    "corr": 0.54
+   },
+   "tags": [
+    {
+     "t": "Beating the market",
+     "tone": "up"
+    },
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Lost more than 30% from a peak in the past year.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "GLD",
+     "n": "SPDR Gold Shares"
+    },
+    {
+     "t": "GDX",
+     "n": "VanEck Gold Miners ETF"
+    }
+   ]
+  },
+  {
+   "id": "fintech",
+   "name": "Fintech & Payments",
+   "category": "Finance",
+   "icon": "card",
+   "rank": 19,
+   "topRank": null,
+   "score": 50.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 38.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 49.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 73.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 54.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 20.3,
+    "mdd": -22.7,
+    "beta": 0.58,
+    "worstMonth": -7.2,
+    "dist200": 1.9,
+    "corr": 0.41
+   },
+   "tags": [
+    {
+     "t": "Uptrend",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "FINX",
+     "n": "Global X FinTech ETF"
+    },
+    {
+     "t": "V",
+     "n": "Visa"
+    },
+    {
+     "t": "MA",
+     "n": "Mastercard"
+    }
+   ]
+  },
+  {
+   "id": "infra",
+   "name": "Infrastructure",
+   "category": "Industry",
+   "icon": "bridge",
+   "rank": 20,
+   "topRank": null,
+   "score": 49.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 35.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 43.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 38.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 95.0
+    }
+   ],
+   "risk": {
+    "level": "low",
+    "vol": 13.9,
+    "mdd": -10.4,
+    "beta": 0.74,
+    "worstMonth": -5.6,
+    "dist200": -4.2,
+    "corr": 0.76
+   },
+   "tags": [
+    {
+     "t": "Low volatility",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "PAVE",
+     "n": "Global X U.S. Infrastructure Development ETF"
+    },
+    {
+     "t": "IGF",
+     "n": "iShares Global Infrastructure ETF"
+    }
+   ]
+  },
+  {
+   "id": "staples",
+   "name": "Food & Consumer Staples",
+   "category": "Consumer",
+   "icon": "basket",
+   "rank": 21,
+   "topRank": null,
+   "score": 49.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 27.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 38.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 57.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 97.0
+    }
+   ],
+   "risk": {
+    "level": "low",
+    "vol": 13.3,
+    "mdd": -10.2,
+    "beta": 0.09,
+    "worstMonth": -7.3,
+    "dist200": -3.3,
+    "corr": 0.09
+   },
+   "tags": [
+    {
+     "t": "Low volatility",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "KXI",
+     "n": "iShares Global Consumer Staples ETF"
+    }
+   ]
+  },
+  {
+   "id": "hospitality",
+   "name": "Hospitality & Travel",
+   "category": "Consumer",
+   "icon": "key",
+   "rank": 22,
+   "topRank": null,
+   "score": 49.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 57.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 42.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 30.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 59.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 23.0,
+    "mdd": -12.4,
+    "beta": 0.71,
+    "worstMonth": -4.5,
+    "dist200": -2.1,
+    "corr": 0.44
+   },
+   "tags": [],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "MAR",
+     "n": "Marriott"
+    },
+    {
+     "t": "HLT",
+     "n": "Hilton"
+    },
+    {
+     "t": "H",
+     "n": "Hyatt"
+    },
+    {
+     "t": "AC.PA",
+     "n": "Accor"
+    },
+    {
+     "t": "BKNG",
+     "n": "Booking Holdings"
+    }
+   ]
+  },
+  {
+   "id": "robotics",
+   "name": "Robotics & Automation",
+   "category": "Technology",
+   "icon": "robot",
+   "rank": 23,
+   "topRank": null,
+   "score": 47.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 51.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 51.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 41.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 41.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 26.5,
+    "mdd": -18.3,
+    "beta": 1.67,
+    "worstMonth": -12.6,
+    "dist200": -0.8,
+    "corr": 0.9
+   },
+   "tags": [],
+   "watch": [],
+   "notes": [
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "ROBO",
+     "n": "ROBO Global Robotics & Automation ETF"
+    },
+    {
+     "t": "BOTZ",
+     "n": "Global X Robotics & Artificial Intelligence ETF"
+    }
+   ]
+  },
+  {
+   "id": "water",
+   "name": "Water",
+   "category": "Energy & Resources",
+   "icon": "drop",
+   "rank": 24,
+   "topRank": null,
+   "score": 44.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 22.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 32.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 59.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 89.0
+    }
+   ],
+   "risk": {
+    "level": "low",
+    "vol": 13.9,
+    "mdd": -11.7,
+    "beta": 0.59,
+    "worstMonth": -6.9,
+    "dist200": -2.9,
+    "corr": 0.61
+   },
+   "tags": [
+    {
+     "t": "Low volatility",
+     "tone": "up"
+    },
+    {
+     "t": "Downtrend",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "PHO",
+     "n": "Invesco Water Resources ETF"
+    },
+    {
+     "t": "CGW",
+     "n": "Invesco S&P Global Water Index ETF"
+    }
+   ]
+  },
+  {
+   "id": "restaurants",
+   "name": "Restaurants",
+   "category": "Consumer",
+   "icon": "fork",
+   "rank": 25,
+   "topRank": null,
+   "score": 41.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 32.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 31.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 35.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 76.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 18.8,
+    "mdd": -13.6,
+    "beta": 0.26,
+    "worstMonth": -11.2,
+    "dist200": -7.4,
+    "corr": 0.2
+   },
+   "tags": [],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "MCD",
+     "n": "McDonald's"
+    },
+    {
+     "t": "CMG",
+     "n": "Chipotle"
+    },
+    {
+     "t": "YUM",
+     "n": "Yum! Brands"
+    },
+    {
+     "t": "SBUX",
+     "n": "Starbucks"
+    },
+    {
+     "t": "QSR",
+     "n": "Restaurant Brands International"
+    },
+    {
+     "t": "DRI",
+     "n": "Darden Restaurants"
+    }
+   ]
+  },
+  {
+   "id": "batteries",
+   "name": "Batteries & Lithium",
+   "category": "Energy & Resources",
+   "icon": "battery",
+   "rank": 26,
+   "topRank": null,
+   "score": 41.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 70.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 39.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 8.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 16.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 32.7,
+    "mdd": -26.8,
+    "beta": 1.57,
+    "worstMonth": -11.2,
+    "dist200": -8.3,
+    "corr": 0.68
+   },
+   "tags": [
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "LIT",
+     "n": "Global X Lithium & Battery Tech ETF"
+    }
+   ]
+  },
+  {
+   "id": "airlines",
+   "name": "Airlines",
+   "category": "Consumer",
+   "icon": "plane",
+   "rank": 27,
+   "topRank": null,
+   "score": 40.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 59.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 54.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 3.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 19.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 32.6,
+    "mdd": -24.1,
+    "beta": 1.46,
+    "worstMonth": -11.1,
+    "dist200": -1.1,
+    "corr": 0.64
+   },
+   "tags": [
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "JETS",
+     "n": "U.S. Global Jets ETF"
+    }
+   ]
+  },
+  {
+   "id": "utilities",
+   "name": "Utilities",
+   "category": "Energy & Resources",
+   "icon": "plug",
+   "rank": 28,
+   "topRank": null,
+   "score": 36.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 16.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 26.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 32.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 92.0
+    }
+   ],
+   "risk": {
+    "level": "low",
+    "vol": 13.3,
+    "mdd": -12.9,
+    "beta": 0.31,
+    "worstMonth": -7.4,
+    "dist200": -7.3,
+    "corr": 0.34
+   },
+   "tags": [
+    {
+     "t": "Low volatility",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "JXI",
+     "n": "iShares Global Utilities ETF"
+    }
+   ]
+  },
+  {
+   "id": "gaming",
+   "name": "Video Games & Esports",
+   "category": "Technology",
+   "icon": "game",
+   "rank": 29,
+   "topRank": null,
+   "score": 35.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 3.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 35.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 92.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 43.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 20.3,
+    "mdd": -29.6,
+    "beta": 0.82,
+    "worstMonth": -12.1,
+    "dist200": 0.9,
+    "corr": 0.57
+   },
+   "tags": [
+    {
+     "t": "Beating the market",
+     "tone": "up"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "ESPO",
+     "n": "VanEck Video Gaming and eSports ETF"
+    },
+    {
+     "t": "HERO",
+     "n": "Global X Video Games & Esports ETF"
+    }
+   ]
+  },
+  {
+   "id": "space",
+   "name": "Space",
+   "category": "Technology",
+   "icon": "rocket",
+   "rank": 30,
+   "topRank": null,
+   "score": 35.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 46.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 50.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 16.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 11.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 36.7,
+    "mdd": -29.5,
+    "beta": 1.8,
+    "worstMonth": -12.7,
+    "dist200": -5.9,
+    "corr": 0.7
+   },
+   "tags": [
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "UFO",
+     "n": "Procure Space ETF"
+    },
+    {
+     "t": "ARKX",
+     "n": "ARK Space Exploration & Innovation ETF"
+    }
+   ]
+  },
+  {
+   "id": "ecommerce",
+   "name": "E-commerce",
+   "category": "Consumer",
+   "icon": "cart",
+   "rank": 31,
+   "topRank": null,
+   "score": 34.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 19.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 23.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 62.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 49.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 21.6,
+    "mdd": -24.4,
+    "beta": 0.96,
+    "worstMonth": -12.1,
+    "dist200": -3.9,
+    "corr": 0.63
+   },
+   "tags": [
+    {
+     "t": "Downtrend",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "IBUY",
+     "n": "Amplify Online Retail ETF"
+    },
+    {
+     "t": "EBIZ",
+     "n": "Global X E-commerce ETF"
+    }
+   ]
+  },
+  {
+   "id": "medtech",
+   "name": "Medical Devices",
+   "category": "Health",
+   "icon": "pulse",
+   "rank": 32,
+   "topRank": null,
+   "score": 32.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 11.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 14.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 78.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 51.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 20.2,
+    "mdd": -26.1,
+    "beta": 0.37,
+    "worstMonth": -10.5,
+    "dist200": -6.1,
+    "corr": 0.26
+   },
+   "tags": [
+    {
+     "t": "Beating the market",
+     "tone": "up"
+    },
+    {
+     "t": "Downtrend",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "IHI",
+     "n": "iShares U.S. Medical Devices ETF"
+    }
+   ]
+  },
+  {
+   "id": "fashion",
+   "name": "Fashion & Apparel",
+   "category": "Consumer",
+   "icon": "shirt",
+   "rank": 33,
+   "topRank": null,
+   "score": 26.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 24.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 15.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 14.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 57.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 20.1,
+    "mdd": -18.3,
+    "beta": 0.38,
+    "worstMonth": -11.4,
+    "dist200": -8.7,
+    "corr": 0.27
+   },
+   "tags": [
+    {
+     "t": "Downtrend",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "ITX.MC",
+     "n": "Inditex"
+    },
+    {
+     "t": "NKE",
+     "n": "Nike"
+    },
+    {
+     "t": "ADS.DE",
+     "n": "adidas"
+    },
+    {
+     "t": "9983.T",
+     "n": "Fast Retailing"
+    },
+    {
+     "t": "HM-B.ST",
+     "n": "H&M"
+    }
+   ]
+  },
+  {
+   "id": "luxury",
+   "name": "Luxury & Watches",
+   "category": "Consumer",
+   "icon": "watch",
+   "rank": 34,
+   "topRank": null,
+   "score": 21.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 30.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 5.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 11.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 35.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 28.1,
+    "mdd": -22.1,
+    "beta": 0.73,
+    "worstMonth": -13.2,
+    "dist200": -11.5,
+    "corr": 0.37
+   },
+   "tags": [
+    {
+     "t": "Downtrend",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "MC.PA",
+     "n": "LVMH"
+    },
+    {
+     "t": "RMS.PA",
+     "n": "Herm\u00e8s"
+    },
+    {
+     "t": "CFR.SW",
+     "n": "Richemont"
+    },
+    {
+     "t": "UHR.SW",
+     "n": "Swatch Group"
+    }
+   ]
+  },
+  {
+   "id": "defense",
+   "name": "Defense & Aerospace",
+   "category": "Industry",
+   "icon": "shield",
+   "rank": 35,
+   "topRank": null,
+   "score": 16.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 5.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 12.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 22.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 38.0
+    }
+   ],
+   "risk": {
+    "level": "medium",
+    "vol": 27.1,
+    "mdd": -23.9,
+    "beta": 0.72,
+    "worstMonth": -10.6,
+    "dist200": -14.2,
+    "corr": 0.37
+   },
+   "tags": [
+    {
+     "t": "Downtrend",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "ITA",
+     "n": "iShares U.S. Aerospace & Defense ETF"
+    },
+    {
+     "t": "XAR",
+     "n": "SPDR S&P Aerospace & Defense ETF"
+    },
+    {
+     "t": "RHM.DE",
+     "n": "Rheinmetall"
+    },
+    {
+     "t": "HO.PA",
+     "n": "Thales"
+    },
+    {
+     "t": "LDO.MI",
+     "n": "Leonardo"
+    }
+   ]
+  },
+  {
+   "id": "homebuild",
+   "name": "Homebuilders & Construction",
+   "category": "Industry",
+   "icon": "house",
+   "rank": 36,
+   "topRank": null,
+   "score": 13.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 8.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 11.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 5.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 32.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 28.4,
+    "mdd": -22.8,
+    "beta": 1.07,
+    "worstMonth": -13.0,
+    "dist200": -9.4,
+    "corr": 0.54
+   },
+   "tags": [
+    {
+     "t": "Downtrend",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [],
+   "proxies": [
+    {
+     "t": "XHB",
+     "n": "SPDR S&P Homebuilders ETF"
+    },
+    {
+     "t": "ITB",
+     "n": "iShares U.S. Home Construction ETF"
+    }
+   ]
+  },
+  {
+   "id": "clean",
+   "name": "Clean Energy",
+   "category": "Energy & Resources",
+   "icon": "sun",
+   "rank": 37,
+   "topRank": null,
+   "score": 11.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 14.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 14.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 0.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 14.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 33.7,
+    "mdd": -35.4,
+    "beta": 1.71,
+    "worstMonth": -15.5,
+    "dist200": -14.7,
+    "corr": 0.72
+   },
+   "tags": [
+    {
+     "t": "High volatility",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Lost more than 30% from a peak in the past year.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "ICLN",
+     "n": "iShares Global Clean Energy ETF"
+    },
+    {
+     "t": "TAN",
+     "n": "Invesco Solar ETF"
+    }
+   ]
+  },
+  {
+   "id": "nuclear",
+   "name": "Nuclear & Uranium",
+   "category": "Energy & Resources",
+   "icon": "atom",
+   "rank": 38,
+   "topRank": null,
+   "score": 7.0,
+   "pillars": [
+    {
+     "key": "momentum",
+     "label": "Momentum",
+     "weight": 38,
+     "score": 0.0
+    },
+    {
+     "key": "trend",
+     "label": "Trend",
+     "weight": 25,
+     "score": 7.0
+    },
+    {
+     "key": "strength",
+     "label": "Strength",
+     "weight": 19,
+     "score": 27.0
+    },
+    {
+     "key": "risk",
+     "label": "Risk",
+     "weight": 19,
+     "score": 0.0
+    }
+   ],
+   "risk": {
+    "level": "high",
+    "vol": 47.8,
+    "mdd": -38.4,
+    "beta": 2.23,
+    "worstMonth": -17.4,
+    "dist200": -18.5,
+    "corr": 0.67
+   },
+   "tags": [
+    {
+     "t": "Downtrend",
+     "tone": "dn"
+    }
+   ],
+   "watch": [],
+   "notes": [
+    "Large price swings: a fall of 20% or more within a quarter is possible.",
+    "Lost more than 30% from a peak in the past year.",
+    "Tends to fall harder than world stocks in a sell-off."
+   ],
+   "proxies": [
+    {
+     "t": "URA",
+     "n": "Global X Uranium ETF"
+    },
+    {
+     "t": "NLR",
+     "n": "VanEck Uranium and Nuclear ETF"
+    }
+   ]
+  }
+ ]
+}
