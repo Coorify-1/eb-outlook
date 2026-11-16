@@ -453,10 +453,7 @@ def _rss_signals(themes: list[dict], asof: dt.date) -> dict[str, dict]:
             continue
         tr = _mean([i["s"] for i in rec])
         tp = _mean([i["s"] for i in pri]) if pri and len(pri) >= 5 else tr
-        buzz = None
-        if pri and len(rec) < 95 and len(pri) < 95:
-            buzz = (len(rec) / 30) / (len(pri) / 60)
-        out[th["id"]] = {"tone": tr, "toneChg": tr - tp, "buzz": buzz}
+        out[th["id"]] = {"tone": tr, "toneChg": tr - tp, "buzz": None}
         log("news", th["id"], out[th["id"]])
     return out
 
@@ -481,8 +478,7 @@ def news_watch(themes: list[dict], today: dt.date) -> tuple[dict[str, dict], str
         n = len(week)
         recent = _mean([i["s"] for i in week]) if n >= 5 else None
         base = _mean([i["s"] for i in prior]) if len(prior) >= 5 else None
-        if prior and n < 95 and len(prior) < 95:
-            buzz = (n / 7) / (len(prior) / 28)
+        # no attention measure from RSS: Google returns fewer old articles, so counts are biased
         th_d, th_lvl = 0.07, 0.20
         status = "neutral"
         if recent is not None and n >= 5:

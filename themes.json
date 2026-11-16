@@ -651,7 +651,7 @@
           "n": "iShares MSCI Europe Financials ETF"
         }
       ],
-      "news": "(\"bank stocks\" OR \"banking sector\" OR \"bank earnings\" OR lenders)"
+      "news": "(\"bank stocks\" OR \"banking sector\" OR \"bank earnings\" OR \"big banks\")"
     },
     {
       "id": "insurance",
