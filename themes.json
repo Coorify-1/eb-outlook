@@ -1,87 +1,683 @@
 {
-  "_help": "The EB Outlook universe. To add a theme, copy one block and change it: id (unique, lowercase), name, category, icon (see README), and proxies = the ETFs or shares that measure it. Prices of non-US listings are converted to US dollars automatically. A theme needs at least 13 months of price history to be scored.",
-  "benchmark": { "t": "ACWI", "n": "iShares MSCI ACWI ETF (world stocks)" },
+  "_help": "The EB Outlook universe. To add a theme, copy one block and change it: id (unique, lowercase), name, category, icon (see README), and proxies = the ETFs or shares that measure it. Prices of non-US listings are converted to US dollars automatically. A theme needs at least 13 months of price history to be scored. Optional \"news\": the search query used for the News pillar and the weekly News Watch.",
+  "benchmark": {
+    "t": "ACWI",
+    "n": "iShares MSCI ACWI ETF (world stocks)"
+  },
   "themes": [
-    { "id": "ai", "name": "Artificial Intelligence", "category": "Technology", "icon": "ai",
-      "proxies": [{ "t": "AIQ", "n": "Global X Artificial Intelligence & Technology ETF" }, { "t": "IGPT", "n": "Invesco AI and Next Gen Software ETF" }] },
-    { "id": "semis", "name": "Semiconductors", "category": "Technology", "icon": "chip",
-      "proxies": [{ "t": "SMH", "n": "VanEck Semiconductor ETF" }, { "t": "SOXX", "n": "iShares Semiconductor ETF" }] },
-    { "id": "cyber", "name": "Cybersecurity", "category": "Technology", "icon": "lock",
-      "proxies": [{ "t": "CIBR", "n": "First Trust NASDAQ Cybersecurity ETF" }, { "t": "HACK", "n": "Amplify Cybersecurity ETF" }] },
-    { "id": "cloud", "name": "Cloud & Data Centers", "category": "Technology", "icon": "cloud",
-      "proxies": [{ "t": "SKYY", "n": "First Trust Cloud Computing ETF" }, { "t": "SRVR", "n": "Pacer Data & Infrastructure Real Estate ETF" }] },
-    { "id": "quantum", "name": "Quantum Computing", "category": "Technology", "icon": "quantum",
-      "proxies": [{ "t": "QTUM", "n": "Defiance Quantum ETF" }] },
-    { "id": "robotics", "name": "Robotics & Automation", "category": "Technology", "icon": "robot",
-      "proxies": [{ "t": "ROBO", "n": "ROBO Global Robotics & Automation ETF" }, { "t": "BOTZ", "n": "Global X Robotics & Artificial Intelligence ETF" }] },
-    { "id": "space", "name": "Space", "category": "Technology", "icon": "rocket",
-      "proxies": [{ "t": "UFO", "n": "Procure Space ETF" }, { "t": "ARKX", "n": "ARK Space Exploration & Innovation ETF" }] },
-    { "id": "gaming", "name": "Video Games & Esports", "category": "Technology", "icon": "game",
-      "proxies": [{ "t": "ESPO", "n": "VanEck Video Gaming and eSports ETF" }, { "t": "HERO", "n": "Global X Video Games & Esports ETF" }] },
-    { "id": "fintech", "name": "Fintech & Payments", "category": "Finance", "icon": "card",
-      "proxies": [{ "t": "FINX", "n": "Global X FinTech ETF" }, { "t": "V", "n": "Visa" }, { "t": "MA", "n": "Mastercard" }] },
-
-    { "id": "nuclear", "name": "Nuclear & Uranium", "category": "Energy & Resources", "icon": "atom",
-      "proxies": [{ "t": "URA", "n": "Global X Uranium ETF" }, { "t": "NLR", "n": "VanEck Uranium and Nuclear ETF" }] },
-    { "id": "clean", "name": "Clean Energy", "category": "Energy & Resources", "icon": "sun",
-      "proxies": [{ "t": "ICLN", "n": "iShares Global Clean Energy ETF" }, { "t": "TAN", "n": "Invesco Solar ETF" }] },
-    { "id": "oilgas", "name": "Oil & Gas", "category": "Energy & Resources", "icon": "flame",
-      "proxies": [{ "t": "IXC", "n": "iShares Global Energy ETF" }] },
-    { "id": "minerals", "name": "Strategic Minerals", "category": "Energy & Resources", "icon": "gem",
-      "proxies": [{ "t": "REMX", "n": "VanEck Rare Earth and Strategic Metals ETF" }, { "t": "PICK", "n": "iShares MSCI Global Metals & Mining Producers ETF" }, { "t": "COPX", "n": "Global X Copper Miners ETF" }] },
-    { "id": "batteries", "name": "Batteries & Lithium", "category": "Energy & Resources", "icon": "battery",
-      "proxies": [{ "t": "LIT", "n": "Global X Lithium & Battery Tech ETF" }] },
-    { "id": "gold", "name": "Gold & Precious Metals", "category": "Energy & Resources", "icon": "coin",
-      "proxies": [{ "t": "GLD", "n": "SPDR Gold Shares" }, { "t": "GDX", "n": "VanEck Gold Miners ETF" }] },
-    { "id": "water", "name": "Water", "category": "Energy & Resources", "icon": "drop",
-      "proxies": [{ "t": "PHO", "n": "Invesco Water Resources ETF" }, { "t": "CGW", "n": "Invesco S&P Global Water Index ETF" }] },
-    { "id": "utilities", "name": "Utilities", "category": "Energy & Resources", "icon": "plug",
-      "proxies": [{ "t": "JXI", "n": "iShares Global Utilities ETF" }] },
-
-    { "id": "defense", "name": "Defense & Aerospace", "category": "Industry", "icon": "shield",
-      "proxies": [{ "t": "ITA", "n": "iShares U.S. Aerospace & Defense ETF" }, { "t": "XAR", "n": "SPDR S&P Aerospace & Defense ETF" }, { "t": "RHM.DE", "n": "Rheinmetall" }, { "t": "HO.PA", "n": "Thales" }, { "t": "LDO.MI", "n": "Leonardo" }] },
-    { "id": "infra", "name": "Infrastructure", "category": "Industry", "icon": "bridge",
-      "proxies": [{ "t": "PAVE", "n": "Global X U.S. Infrastructure Development ETF" }, { "t": "IGF", "n": "iShares Global Infrastructure ETF" }] },
-    { "id": "electro", "name": "Electrification & Grid", "category": "Industry", "icon": "bolt",
-      "proxies": [{ "t": "GRID", "n": "First Trust NASDAQ Clean Edge Smart Grid Infrastructure ETF" }, { "t": "ETN", "n": "Eaton" }, { "t": "SU.PA", "n": "Schneider Electric" }, { "t": "SIE.DE", "n": "Siemens" }, { "t": "ABBN.SW", "n": "ABB" }] },
-    { "id": "auto", "name": "Automotive & EVs", "category": "Industry", "icon": "car",
-      "proxies": [{ "t": "CARZ", "n": "First Trust S-Network Future Vehicles & Technology ETF" }, { "t": "DRIV", "n": "Global X Autonomous & Electric Vehicles ETF" }] },
-    { "id": "transport", "name": "Transport & Logistics", "category": "Industry", "icon": "truck",
-      "proxies": [{ "t": "IYT", "n": "iShares U.S. Transportation ETF" }] },
-    { "id": "homebuild", "name": "Homebuilders & Construction", "category": "Industry", "icon": "house",
-      "proxies": [{ "t": "XHB", "n": "SPDR S&P Homebuilders ETF" }, { "t": "ITB", "n": "iShares U.S. Home Construction ETF" }] },
-
-    { "id": "health", "name": "Healthcare", "category": "Health", "icon": "cross",
-      "proxies": [{ "t": "IXJ", "n": "iShares Global Healthcare ETF" }] },
-    { "id": "biotech", "name": "Biotech", "category": "Health", "icon": "dna",
-      "proxies": [{ "t": "XBI", "n": "SPDR S&P Biotech ETF" }, { "t": "IBB", "n": "iShares Biotechnology ETF" }] },
-    { "id": "pharma", "name": "Pharmaceuticals", "category": "Health", "icon": "pill",
-      "proxies": [{ "t": "PPH", "n": "VanEck Pharmaceutical ETF" }] },
-    { "id": "medtech", "name": "Medical Devices", "category": "Health", "icon": "pulse",
-      "proxies": [{ "t": "IHI", "n": "iShares U.S. Medical Devices ETF" }] },
-
-    { "id": "hospitality", "name": "Hospitality & Travel", "category": "Consumer", "icon": "key",
-      "proxies": [{ "t": "MAR", "n": "Marriott" }, { "t": "HLT", "n": "Hilton" }, { "t": "H", "n": "Hyatt" }, { "t": "AC.PA", "n": "Accor" }, { "t": "BKNG", "n": "Booking Holdings" }] },
-    { "id": "airlines", "name": "Airlines", "category": "Consumer", "icon": "plane",
-      "proxies": [{ "t": "JETS", "n": "U.S. Global Jets ETF" }] },
-    { "id": "restaurants", "name": "Restaurants", "category": "Consumer", "icon": "fork",
-      "proxies": [{ "t": "MCD", "n": "McDonald's" }, { "t": "CMG", "n": "Chipotle" }, { "t": "YUM", "n": "Yum! Brands" }, { "t": "SBUX", "n": "Starbucks" }, { "t": "QSR", "n": "Restaurant Brands International" }, { "t": "DRI", "n": "Darden Restaurants" }] },
-    { "id": "luxury", "name": "Luxury & Watches", "category": "Consumer", "icon": "watch",
-      "proxies": [{ "t": "MC.PA", "n": "LVMH" }, { "t": "RMS.PA", "n": "Hermès" }, { "t": "CFR.SW", "n": "Richemont" }, { "t": "UHR.SW", "n": "Swatch Group" }] },
-    { "id": "fashion", "name": "Fashion & Apparel", "category": "Consumer", "icon": "shirt",
-      "proxies": [{ "t": "ITX.MC", "n": "Inditex" }, { "t": "NKE", "n": "Nike" }, { "t": "ADS.DE", "n": "adidas" }, { "t": "9983.T", "n": "Fast Retailing" }, { "t": "HM-B.ST", "n": "H&M" }] },
-    { "id": "ecommerce", "name": "E-commerce", "category": "Consumer", "icon": "cart",
-      "proxies": [{ "t": "IBUY", "n": "Amplify Online Retail ETF" }, { "t": "EBIZ", "n": "Global X E-commerce ETF" }] },
-    { "id": "staples", "name": "Food & Consumer Staples", "category": "Consumer", "icon": "basket",
-      "proxies": [{ "t": "KXI", "n": "iShares Global Consumer Staples ETF" }] },
-    { "id": "agri", "name": "Agriculture", "category": "Consumer", "icon": "leaf",
-      "proxies": [{ "t": "MOO", "n": "VanEck Agribusiness ETF" }] },
-
-    { "id": "banks", "name": "Banks", "category": "Finance", "icon": "bank",
-      "proxies": [{ "t": "KBWB", "n": "Invesco KBW Bank ETF" }, { "t": "EUFN", "n": "iShares MSCI Europe Financials ETF" }] },
-    { "id": "insurance", "name": "Insurance", "category": "Finance", "icon": "umbrella",
-      "proxies": [{ "t": "KIE", "n": "SPDR S&P Insurance ETF" }] },
-    { "id": "realestate", "name": "Real Estate", "category": "Finance", "icon": "building",
-      "proxies": [{ "t": "REET", "n": "iShares Global REIT ETF" }] }
+    {
+      "id": "ai",
+      "name": "Artificial Intelligence",
+      "category": "Technology",
+      "icon": "ai",
+      "proxies": [
+        {
+          "t": "AIQ",
+          "n": "Global X Artificial Intelligence & Technology ETF"
+        },
+        {
+          "t": "IGPT",
+          "n": "Invesco AI and Next Gen Software ETF"
+        }
+      ],
+      "news": "\"artificial intelligence\""
+    },
+    {
+      "id": "semis",
+      "name": "Semiconductors",
+      "category": "Technology",
+      "icon": "chip",
+      "proxies": [
+        {
+          "t": "SMH",
+          "n": "VanEck Semiconductor ETF"
+        },
+        {
+          "t": "SOXX",
+          "n": "iShares Semiconductor ETF"
+        }
+      ],
+      "news": "(semiconductor OR chipmakers)"
+    },
+    {
+      "id": "cyber",
+      "name": "Cybersecurity",
+      "category": "Technology",
+      "icon": "lock",
+      "proxies": [
+        {
+          "t": "CIBR",
+          "n": "First Trust NASDAQ Cybersecurity ETF"
+        },
+        {
+          "t": "HACK",
+          "n": "Amplify Cybersecurity ETF"
+        }
+      ],
+      "news": "cybersecurity"
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud & Data Centers",
+      "category": "Technology",
+      "icon": "cloud",
+      "proxies": [
+        {
+          "t": "SKYY",
+          "n": "First Trust Cloud Computing ETF"
+        },
+        {
+          "t": "SRVR",
+          "n": "Pacer Data & Infrastructure Real Estate ETF"
+        }
+      ],
+      "news": "(\"cloud computing\" OR \"data center\")"
+    },
+    {
+      "id": "quantum",
+      "name": "Quantum Computing",
+      "category": "Technology",
+      "icon": "quantum",
+      "proxies": [
+        {
+          "t": "QTUM",
+          "n": "Defiance Quantum ETF"
+        }
+      ],
+      "news": "\"quantum computing\""
+    },
+    {
+      "id": "robotics",
+      "name": "Robotics & Automation",
+      "category": "Technology",
+      "icon": "robot",
+      "proxies": [
+        {
+          "t": "ROBO",
+          "n": "ROBO Global Robotics & Automation ETF"
+        },
+        {
+          "t": "BOTZ",
+          "n": "Global X Robotics & Artificial Intelligence ETF"
+        }
+      ],
+      "news": "(robotics OR \"industrial automation\")"
+    },
+    {
+      "id": "space",
+      "name": "Space",
+      "category": "Technology",
+      "icon": "rocket",
+      "proxies": [
+        {
+          "t": "UFO",
+          "n": "Procure Space ETF"
+        },
+        {
+          "t": "ARKX",
+          "n": "ARK Space Exploration & Innovation ETF"
+        }
+      ],
+      "news": "(\"space industry\" OR \"satellite launch\")"
+    },
+    {
+      "id": "gaming",
+      "name": "Video Games & Esports",
+      "category": "Technology",
+      "icon": "game",
+      "proxies": [
+        {
+          "t": "ESPO",
+          "n": "VanEck Video Gaming and eSports ETF"
+        },
+        {
+          "t": "HERO",
+          "n": "Global X Video Games & Esports ETF"
+        }
+      ],
+      "news": "(\"video game industry\" OR esports)"
+    },
+    {
+      "id": "fintech",
+      "name": "Fintech & Payments",
+      "category": "Finance",
+      "icon": "card",
+      "proxies": [
+        {
+          "t": "FINX",
+          "n": "Global X FinTech ETF"
+        },
+        {
+          "t": "V",
+          "n": "Visa"
+        },
+        {
+          "t": "MA",
+          "n": "Mastercard"
+        }
+      ],
+      "news": "(fintech OR \"payments industry\")"
+    },
+    {
+      "id": "nuclear",
+      "name": "Nuclear & Uranium",
+      "category": "Energy & Resources",
+      "icon": "atom",
+      "proxies": [
+        {
+          "t": "URA",
+          "n": "Global X Uranium ETF"
+        },
+        {
+          "t": "NLR",
+          "n": "VanEck Uranium and Nuclear ETF"
+        }
+      ],
+      "news": "(\"nuclear power\" OR uranium)"
+    },
+    {
+      "id": "clean",
+      "name": "Clean Energy",
+      "category": "Energy & Resources",
+      "icon": "sun",
+      "proxies": [
+        {
+          "t": "ICLN",
+          "n": "iShares Global Clean Energy ETF"
+        },
+        {
+          "t": "TAN",
+          "n": "Invesco Solar ETF"
+        }
+      ],
+      "news": "(\"clean energy\" OR \"solar power\")"
+    },
+    {
+      "id": "oilgas",
+      "name": "Oil & Gas",
+      "category": "Energy & Resources",
+      "icon": "flame",
+      "proxies": [
+        {
+          "t": "IXC",
+          "n": "iShares Global Energy ETF"
+        }
+      ],
+      "news": "(\"oil prices\" OR \"oil and gas\")"
+    },
+    {
+      "id": "minerals",
+      "name": "Strategic Minerals",
+      "category": "Energy & Resources",
+      "icon": "gem",
+      "proxies": [
+        {
+          "t": "REMX",
+          "n": "VanEck Rare Earth and Strategic Metals ETF"
+        },
+        {
+          "t": "PICK",
+          "n": "iShares MSCI Global Metals & Mining Producers ETF"
+        },
+        {
+          "t": "COPX",
+          "n": "Global X Copper Miners ETF"
+        }
+      ],
+      "news": "(\"rare earths\" OR \"critical minerals\" OR \"copper prices\")"
+    },
+    {
+      "id": "batteries",
+      "name": "Batteries & Lithium",
+      "category": "Energy & Resources",
+      "icon": "battery",
+      "proxies": [
+        {
+          "t": "LIT",
+          "n": "Global X Lithium & Battery Tech ETF"
+        }
+      ],
+      "news": "(lithium OR \"battery makers\")"
+    },
+    {
+      "id": "gold",
+      "name": "Gold & Precious Metals",
+      "category": "Energy & Resources",
+      "icon": "coin",
+      "proxies": [
+        {
+          "t": "GLD",
+          "n": "SPDR Gold Shares"
+        },
+        {
+          "t": "GDX",
+          "n": "VanEck Gold Miners ETF"
+        }
+      ],
+      "news": "(\"gold price\" OR \"gold miners\")"
+    },
+    {
+      "id": "water",
+      "name": "Water",
+      "category": "Energy & Resources",
+      "icon": "drop",
+      "proxies": [
+        {
+          "t": "PHO",
+          "n": "Invesco Water Resources ETF"
+        },
+        {
+          "t": "CGW",
+          "n": "Invesco S&P Global Water Index ETF"
+        }
+      ],
+      "news": "(\"water utilities\" OR \"water infrastructure\")"
+    },
+    {
+      "id": "utilities",
+      "name": "Utilities",
+      "category": "Energy & Resources",
+      "icon": "plug",
+      "proxies": [
+        {
+          "t": "JXI",
+          "n": "iShares Global Utilities ETF"
+        }
+      ],
+      "news": "\"electric utilities\""
+    },
+    {
+      "id": "defense",
+      "name": "Defense & Aerospace",
+      "category": "Industry",
+      "icon": "shield",
+      "proxies": [
+        {
+          "t": "ITA",
+          "n": "iShares U.S. Aerospace & Defense ETF"
+        },
+        {
+          "t": "XAR",
+          "n": "SPDR S&P Aerospace & Defense ETF"
+        },
+        {
+          "t": "RHM.DE",
+          "n": "Rheinmetall"
+        },
+        {
+          "t": "HO.PA",
+          "n": "Thales"
+        },
+        {
+          "t": "LDO.MI",
+          "n": "Leonardo"
+        }
+      ],
+      "news": "(\"defense industry\" OR \"defence spending\" OR aerospace)"
+    },
+    {
+      "id": "infra",
+      "name": "Infrastructure",
+      "category": "Industry",
+      "icon": "bridge",
+      "proxies": [
+        {
+          "t": "PAVE",
+          "n": "Global X U.S. Infrastructure Development ETF"
+        },
+        {
+          "t": "IGF",
+          "n": "iShares Global Infrastructure ETF"
+        }
+      ],
+      "news": "\"infrastructure spending\""
+    },
+    {
+      "id": "electro",
+      "name": "Electrification & Grid",
+      "category": "Industry",
+      "icon": "bolt",
+      "proxies": [
+        {
+          "t": "GRID",
+          "n": "First Trust NASDAQ Clean Edge Smart Grid Infrastructure ETF"
+        },
+        {
+          "t": "ETN",
+          "n": "Eaton"
+        },
+        {
+          "t": "SU.PA",
+          "n": "Schneider Electric"
+        },
+        {
+          "t": "SIE.DE",
+          "n": "Siemens"
+        },
+        {
+          "t": "ABBN.SW",
+          "n": "ABB"
+        }
+      ],
+      "news": "(\"power grid\" OR electrification)"
+    },
+    {
+      "id": "auto",
+      "name": "Automotive & EVs",
+      "category": "Industry",
+      "icon": "car",
+      "proxies": [
+        {
+          "t": "CARZ",
+          "n": "First Trust S-Network Future Vehicles & Technology ETF"
+        },
+        {
+          "t": "DRIV",
+          "n": "Global X Autonomous & Electric Vehicles ETF"
+        }
+      ],
+      "news": "(automakers OR \"electric vehicles\")"
+    },
+    {
+      "id": "transport",
+      "name": "Transport & Logistics",
+      "category": "Industry",
+      "icon": "truck",
+      "proxies": [
+        {
+          "t": "IYT",
+          "n": "iShares U.S. Transportation ETF"
+        }
+      ],
+      "news": "(freight OR logistics)"
+    },
+    {
+      "id": "homebuild",
+      "name": "Homebuilders & Construction",
+      "category": "Industry",
+      "icon": "house",
+      "proxies": [
+        {
+          "t": "XHB",
+          "n": "SPDR S&P Homebuilders ETF"
+        },
+        {
+          "t": "ITB",
+          "n": "iShares U.S. Home Construction ETF"
+        }
+      ],
+      "news": "(homebuilders OR \"housing starts\")"
+    },
+    {
+      "id": "health",
+      "name": "Healthcare",
+      "category": "Health",
+      "icon": "cross",
+      "proxies": [
+        {
+          "t": "IXJ",
+          "n": "iShares Global Healthcare ETF"
+        }
+      ],
+      "news": "\"healthcare industry\""
+    },
+    {
+      "id": "biotech",
+      "name": "Biotech",
+      "category": "Health",
+      "icon": "dna",
+      "proxies": [
+        {
+          "t": "XBI",
+          "n": "SPDR S&P Biotech ETF"
+        },
+        {
+          "t": "IBB",
+          "n": "iShares Biotechnology ETF"
+        }
+      ],
+      "news": "biotech"
+    },
+    {
+      "id": "pharma",
+      "name": "Pharmaceuticals",
+      "category": "Health",
+      "icon": "pill",
+      "proxies": [
+        {
+          "t": "PPH",
+          "n": "VanEck Pharmaceutical ETF"
+        }
+      ],
+      "news": "(pharmaceutical OR drugmakers)"
+    },
+    {
+      "id": "medtech",
+      "name": "Medical Devices",
+      "category": "Health",
+      "icon": "pulse",
+      "proxies": [
+        {
+          "t": "IHI",
+          "n": "iShares U.S. Medical Devices ETF"
+        }
+      ],
+      "news": "\"medical devices\""
+    },
+    {
+      "id": "hospitality",
+      "name": "Hospitality & Travel",
+      "category": "Consumer",
+      "icon": "key",
+      "proxies": [
+        {
+          "t": "MAR",
+          "n": "Marriott"
+        },
+        {
+          "t": "HLT",
+          "n": "Hilton"
+        },
+        {
+          "t": "H",
+          "n": "Hyatt"
+        },
+        {
+          "t": "AC.PA",
+          "n": "Accor"
+        },
+        {
+          "t": "BKNG",
+          "n": "Booking Holdings"
+        }
+      ],
+      "news": "(hotels OR \"travel demand\")"
+    },
+    {
+      "id": "airlines",
+      "name": "Airlines",
+      "category": "Consumer",
+      "icon": "plane",
+      "proxies": [
+        {
+          "t": "JETS",
+          "n": "U.S. Global Jets ETF"
+        }
+      ],
+      "news": "airlines"
+    },
+    {
+      "id": "restaurants",
+      "name": "Restaurants",
+      "category": "Consumer",
+      "icon": "fork",
+      "proxies": [
+        {
+          "t": "MCD",
+          "n": "McDonald's"
+        },
+        {
+          "t": "CMG",
+          "n": "Chipotle"
+        },
+        {
+          "t": "YUM",
+          "n": "Yum! Brands"
+        },
+        {
+          "t": "SBUX",
+          "n": "Starbucks"
+        },
+        {
+          "t": "QSR",
+          "n": "Restaurant Brands International"
+        },
+        {
+          "t": "DRI",
+          "n": "Darden Restaurants"
+        }
+      ],
+      "news": "(\"restaurant chains\" OR \"fast food\")"
+    },
+    {
+      "id": "luxury",
+      "name": "Luxury & Watches",
+      "category": "Consumer",
+      "icon": "watch",
+      "proxies": [
+        {
+          "t": "MC.PA",
+          "n": "LVMH"
+        },
+        {
+          "t": "RMS.PA",
+          "n": "Hermès"
+        },
+        {
+          "t": "CFR.SW",
+          "n": "Richemont"
+        },
+        {
+          "t": "UHR.SW",
+          "n": "Swatch Group"
+        }
+      ],
+      "news": "(\"luxury goods\" OR watchmakers)"
+    },
+    {
+      "id": "fashion",
+      "name": "Fashion & Apparel",
+      "category": "Consumer",
+      "icon": "shirt",
+      "proxies": [
+        {
+          "t": "ITX.MC",
+          "n": "Inditex"
+        },
+        {
+          "t": "NKE",
+          "n": "Nike"
+        },
+        {
+          "t": "ADS.DE",
+          "n": "adidas"
+        },
+        {
+          "t": "9983.T",
+          "n": "Fast Retailing"
+        },
+        {
+          "t": "HM-B.ST",
+          "n": "H&M"
+        }
+      ],
+      "news": "(\"fashion retail\" OR apparel)"
+    },
+    {
+      "id": "ecommerce",
+      "name": "E-commerce",
+      "category": "Consumer",
+      "icon": "cart",
+      "proxies": [
+        {
+          "t": "IBUY",
+          "n": "Amplify Online Retail ETF"
+        },
+        {
+          "t": "EBIZ",
+          "n": "Global X E-commerce ETF"
+        }
+      ],
+      "news": "\"e-commerce\""
+    },
+    {
+      "id": "staples",
+      "name": "Food & Consumer Staples",
+      "category": "Consumer",
+      "icon": "basket",
+      "proxies": [
+        {
+          "t": "KXI",
+          "n": "iShares Global Consumer Staples ETF"
+        }
+      ],
+      "news": "(\"consumer staples\" OR \"food companies\")"
+    },
+    {
+      "id": "agri",
+      "name": "Agriculture",
+      "category": "Consumer",
+      "icon": "leaf",
+      "proxies": [
+        {
+          "t": "MOO",
+          "n": "VanEck Agribusiness ETF"
+        }
+      ],
+      "news": "(agriculture OR \"crop prices\")"
+    },
+    {
+      "id": "banks",
+      "name": "Banks",
+      "category": "Finance",
+      "icon": "bank",
+      "proxies": [
+        {
+          "t": "KBWB",
+          "n": "Invesco KBW Bank ETF"
+        },
+        {
+          "t": "EUFN",
+          "n": "iShares MSCI Europe Financials ETF"
+        }
+      ],
+      "news": "(banks OR banking)"
+    },
+    {
+      "id": "insurance",
+      "name": "Insurance",
+      "category": "Finance",
+      "icon": "umbrella",
+      "proxies": [
+        {
+          "t": "KIE",
+          "n": "SPDR S&P Insurance ETF"
+        }
+      ],
+      "news": "insurers"
+    },
+    {
+      "id": "realestate",
+      "name": "Real Estate",
+      "category": "Finance",
+      "icon": "building",
+      "proxies": [
+        {
+          "t": "REET",
+          "n": "iShares Global REIT ETF"
+        }
+      ],
+      "news": "(\"real estate\" OR REITs)"
+    }
   ]
 }

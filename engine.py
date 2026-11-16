@@ -239,7 +239,11 @@ def macro_series(start: str) -> dict[str, pd.Series | None]:
     return out
 
 
-# ------------------------------------------------------------------ data: news (GDELT)
+# ------------------------------------------------------------------ data: news
+#
+# Two free sources. GDELT (tone of full articles, worldwide) is tried first; if it does
+# not answer from GitHub, the whole run switches to Google News RSS headlines scored with
+# VADER (+ a small finance word list). One source per run, so scores stay comparable.
 
 def news_query(theme: dict) -> str:
     if theme.get("news"):
@@ -264,58 +268,246 @@ def gdelt_timeline(query: str, mode: str, start: dt.date, end: dt.date) -> pd.Se
         "enddatetime": end.strftime("%Y%m%d") + "235959",
     }
     url = "https://api.gdeltproject.org/api/v2/doc/doc?" + urllib.parse.urlencode(params)
-    for attempt in range(1):
-        try:
-            req = urllib.request.Request(url, headers=UA)
-            with urllib.request.urlopen(req, timeout=20) as r:
-                raw = r.read().decode("utf-8", "ignore")
-            j = json.loads(raw)
-            data = (j.get("timeline") or [{}])[0].get("data") or []
-            if not data:
-                return None
-            s = pd.Series([float(d["value"]) for d in data],
-                          index=pd.to_datetime([d["date"][:8] for d in data]))
-            return s
-        except Exception as e:  # noqa: BLE001
-            log("GDELT", mode, query[:40], "failed:", str(e)[:120])
+    try:
+        req = urllib.request.Request(url, headers=UA)
+        with urllib.request.urlopen(req, timeout=20) as r:
+            raw = r.read().decode("utf-8", "ignore")
+        j = json.loads(raw)
+        data = (j.get("timeline") or [{}])[0].get("data") or []
+        if not data:
+            return None
+        return pd.Series([float(d["value"]) for d in data],
+                         index=pd.to_datetime([d["date"][:8] for d in data]))
+    except Exception as e:  # noqa: BLE001
+        log("GDELT", mode, query[:40], "failed:", str(e)[:120])
     return None
 
 
+# ---- Google News RSS + VADER
+
+FIN_WORDS = {
+    # negative market words VADER does not know well
+    "plunge": -2.6, "plunges": -2.6, "plunged": -2.6, "slump": -2.2, "slumps": -2.2, "slumped": -2.2,
+    "tumble": -2.2, "tumbles": -2.2, "tumbled": -2.2, "sink": -1.8, "sinks": -1.8, "sank": -1.8,
+    "slide": -1.5, "slides": -1.5, "slid": -1.5, "fall": -1.3, "falls": -1.3, "fell": -1.3,
+    "drop": -1.4, "drops": -1.4, "dropped": -1.4, "crash": -2.8, "crashes": -2.8, "selloff": -2.4,
+    "sell-off": -2.4, "rout": -2.6, "warns": -1.8, "warning": -1.6, "downgrade": -2.0,
+    "downgrades": -2.0, "downgraded": -2.0, "cuts": -1.2, "layoffs": -2.0, "lawsuit": -1.8,
+    "probe": -1.6, "investigation": -1.6, "ban": -1.6, "bans": -1.6, "tariff": -1.2, "tariffs": -1.2,
+    "recall": -1.6, "misses": -1.8, "missed": -1.8, "weak": -1.6, "weaker": -1.6, "bankruptcy": -3.0,
+    "default": -2.2, "fraud": -3.0, "shortage": -1.4, "bubble": -1.6, "losses": -1.8, "slowdown": -1.8,
+    "resigns": -1.4, "ousted": -2.0, "sanctions": -1.6, "halts": -1.6, "delays": -1.2,
+    # positive market words
+    "rally": 2.2, "rallies": 2.2, "rallied": 2.2, "surge": 2.2, "surges": 2.2, "surged": 2.2,
+    "soar": 2.6, "soars": 2.6, "soared": 2.6, "jump": 1.8, "jumps": 1.8, "jumped": 1.8,
+    "gains": 1.6, "gain": 1.4, "beat": 1.6, "beats": 1.8, "record": 1.4, "upgrade": 2.0,
+    "upgrades": 2.0, "upgraded": 2.0, "boost": 1.6, "boosts": 1.6, "rebound": 1.8, "rebounds": 1.8,
+    "outperform": 1.8, "wins": 1.8, "approval": 1.6, "approved": 1.6, "breakthrough": 2.4,
+    "demand": 0.6, "expands": 1.2, "expansion": 1.2, "profit": 1.2, "profits": 1.2,
+}
+_VADER = None
+
+
+def headline_score(title: str) -> float:
+    global _VADER
+    if _VADER is None:
+        from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+        _VADER = SentimentIntensityAnalyzer()
+        _VADER.lexicon.update(FIN_WORDS)
+    return float(_VADER.polarity_scores(title)["compound"])
+
+
+def parse_rss(xml_bytes: bytes) -> list[dict]:
+    import email.utils
+    import xml.etree.ElementTree as ET
+
+    items = []
+    root = ET.fromstring(xml_bytes)
+    for it in root.iter("item"):
+        title = (it.findtext("title") or "").strip()
+        src_el = it.find("source")
+        src = (src_el.text or "").strip() if src_el is not None else ""
+        if src and title.endswith(" - " + src):
+            title = title[: -len(src) - 3].strip()
+        try:
+            d = email.utils.parsedate_to_datetime(it.findtext("pubDate") or "")
+            day = d.date().isoformat()
+        except Exception:  # noqa: BLE001
+            day = ""
+        if title:
+            items.append({"t": title, "url": (it.findtext("link") or "").strip(), "src": src,
+                          "date": day, "s": round(headline_score(title), 3)})
+    return items
+
+
+def rss_items(query: str, after: dt.date, before: dt.date) -> list[dict] | None:
+    """Google News headlines published between two dates (max ~100)."""
+    if SYNTHETIC:
+        rng = np.random.default_rng(abs(hash(query + str(after))) % (2**32))
+        words = ["rally", "plunge", "record", "warns", "steady", "deal", "probe", "growth"]
+        n = int(rng.integers(8, 60))
+        return [{"t": f"{query.strip('()\"')} {rng.choice(words)} story {i}", "url": "https://example.com",
+                 "src": "Example News", "date": (before - dt.timedelta(days=int(rng.integers(1, max(2, (before - after).days))))).isoformat(),
+                 "s": float(rng.normal(0, 0.35))} for i in range(n)]
+    q = f"{query} after:{after.isoformat()} before:{before.isoformat()}"
+    url = "https://news.google.com/rss/search?" + urllib.parse.urlencode(
+        {"q": q, "hl": "en-US", "gl": "US", "ceid": "US:en"})
+    for attempt in range(2):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=20) as r:
+                return parse_rss(r.read())
+        except Exception as e:  # noqa: BLE001
+            log("RSS", query[:40], "attempt", attempt + 1, "failed:", str(e)[:120])
+            time.sleep(3)
+    return None
+
+
+_SOURCE: str | None = None
+
+
+def news_source(probe: str, end: dt.date) -> str | None:
+    """'gdelt', 'rss' or None. Decided once per run."""
+    global _SOURCE
+    if _SOURCE is not None:
+        return _SOURCE or None
+    if gdelt_timeline(probe, "timelinetone", end - dt.timedelta(days=30), end) is not None:
+        _SOURCE = "gdelt"
+    elif rss_items(probe, end - dt.timedelta(days=7), end + dt.timedelta(days=1)):
+        _SOURCE = "rss"
+    else:
+        _SOURCE = ""
+    log("news source:", _SOURCE or "none")
+    return _SOURCE or None
+
+
+def _mean(xs):
+    xs = [x for x in xs if x is not None]
+    return float(np.mean(xs)) if xs else None
+
+
 def news_signals(themes: list[dict], asof: dt.date) -> dict[str, dict]:
-    """Tone (level and change) and attention (volume change) over the 90 days before asOf."""
+    """Quarterly News pillar: tone of the last 30 days, its change vs the 60 days before,
+    and attention (volume change)."""
+    if not themes:
+        return {}
+    src = news_source(news_query(themes[0]), asof)
+    if not src:
+        return {}
     start = asof - dt.timedelta(days=89)
     mid = asof - dt.timedelta(days=29)
     out = {}
     t0 = time.time()
-    tried = 0
     for th in themes:
-        # Never let the news step block the run: 10-minute budget, and stop early
-        # if GDELT does not answer for the first themes.
         if time.time() - t0 > NEWS_BUDGET_S:
             log("news: time budget reached, remaining themes get a neutral score")
             break
-        if tried >= 5 and not out:
-            log("news: GDELT not answering, News pillar skipped this quarter")
-            break
-        tried += 1
         q = news_query(th)
-        tone = gdelt_timeline(q, "timelinetone", start, asof)
-        time.sleep(0 if SYNTHETIC else 6)  # GDELT asks for max one request every 5 s
-        vol = gdelt_timeline(q, "timelinevol", start, asof)
-        time.sleep(0 if SYNTHETIC else 6)
-        if tone is None or tone.dropna().size < 20:
-            continue
-        recent = tone[tone.index >= pd.Timestamp(mid)].mean()
-        prior = tone[tone.index < pd.Timestamp(mid)].mean()
-        buzz = None
-        if vol is not None and vol.dropna().size >= 20:
-            vr = vol[vol.index >= pd.Timestamp(mid)].mean()
-            vp = vol[vol.index < pd.Timestamp(mid)].mean()
-            if vp and vp > 0:
-                buzz = float(vr / vp)
-        out[th["id"]] = {"tone": float(recent), "toneChg": float(recent - prior), "buzz": buzz}
+        if src == "gdelt":
+            tone = gdelt_timeline(q, "timelinetone", start, asof)
+            time.sleep(0 if SYNTHETIC else 6)  # GDELT asks for max one request every 5 s
+            vol = gdelt_timeline(q, "timelinevol", start, asof)
+            time.sleep(0 if SYNTHETIC else 6)
+            if tone is None or tone.dropna().size < 20:
+                continue
+            recent = tone[tone.index >= pd.Timestamp(mid)].mean()
+            prior = tone[tone.index < pd.Timestamp(mid)].mean()
+            buzz = None
+            if vol is not None and vol.dropna().size >= 20:
+                vr = vol[vol.index >= pd.Timestamp(mid)].mean()
+                vp = vol[vol.index < pd.Timestamp(mid)].mean()
+                buzz = float(vr / vp) if vp and vp > 0 else None
+            out[th["id"]] = {"tone": float(recent), "toneChg": float(recent - prior), "buzz": buzz}
+        else:
+            rec = rss_items(q, mid, asof + dt.timedelta(days=1))
+            time.sleep(0 if SYNTHETIC else 1.5)
+            pri = rss_items(q, start, mid)
+            time.sleep(0 if SYNTHETIC else 1.5)
+            if not rec or len(rec) < 5:
+                continue
+            tr = _mean([i["s"] for i in rec])
+            tp = _mean([i["s"] for i in pri]) if pri and len(pri) >= 5 else tr
+            buzz = None
+            if pri and len(rec) < 95 and len(pri) < 95:
+                buzz = (len(rec) / 30) / (len(pri) / 60)
+            out[th["id"]] = {"tone": tr, "toneChg": tr - tp, "buzz": buzz}
         log("news", th["id"], out[th["id"]])
     return out
+
+
+# ---- Weekly News Watch for the Top 5
+
+def news_watch(themes: list[dict], today: dt.date) -> tuple[dict[str, dict], str | None]:
+    """This week's coverage vs the 4 weeks before: status, attention and 3 headlines."""
+    if not themes:
+        return {}, None
+    w0 = today - dt.timedelta(days=7)
+    b0 = today - dt.timedelta(days=35)
+    src = news_source(news_query(themes[0]), today)
+    out = {}
+    for th in themes:
+        q = news_query(th)
+        recent = base = buzz = None
+        n = 0
+        week = rss_items(q, w0, today + dt.timedelta(days=1)) or []
+        time.sleep(0 if SYNTHETIC else 1.5)
+        if src == "gdelt":
+            tone = gdelt_timeline(q, "timelinetone", b0, today)
+            time.sleep(0 if SYNTHETIC else 6)
+            vol = gdelt_timeline(q, "timelinevol", b0, today)
+            time.sleep(0 if SYNTHETIC else 6)
+            if tone is not None and tone.dropna().size >= 14:
+                recent = tone[tone.index >= pd.Timestamp(w0)].mean()
+                base = tone[tone.index < pd.Timestamp(w0)].mean()
+                n = max(len(week), 10)
+            if vol is not None and vol.dropna().size >= 14:
+                vr = vol[vol.index >= pd.Timestamp(w0)].mean()
+                vb = vol[vol.index < pd.Timestamp(w0)].mean()
+                buzz = float(vr / vb) if vb and vb > 0 else None
+            th_d, th_lvl = 1.0, 4.0
+        else:
+            prior = rss_items(q, b0, w0) or []
+            time.sleep(0 if SYNTHETIC else 1.5)
+            n = len(week)
+            recent = _mean([i["s"] for i in week]) if n >= 5 else None
+            base = _mean([i["s"] for i in prior]) if len(prior) >= 5 else None
+            if prior and n < 95 and len(prior) < 95:
+                buzz = (n / 7) / (len(prior) / 28)
+            th_d, th_lvl = 0.07, 0.20
+        status = "neutral"
+        if recent is not None and n >= 5:
+            d = recent - (base if base is not None else recent)
+            if d <= -th_d or recent <= -th_lvl:
+                status = "negative"
+            elif d >= th_d or recent >= th_lvl:
+                status = "positive"
+        # headlines that explain the status
+        uniq, seen = [], set()
+        for it in week:
+            k = it["t"].lower()[:70]
+            if k not in seen:
+                seen.add(k)
+                uniq.append(it)
+        if status == "negative":
+            uniq.sort(key=lambda i: i["s"])
+        elif status == "positive":
+            uniq.sort(key=lambda i: -i["s"])
+        else:
+            uniq.sort(key=lambda i: i["date"], reverse=True)
+        heads = [{"t": i["t"][:160], "url": i["url"], "src": i["src"], "date": i["date"],
+                  "tone": "up" if i["s"] >= 0.2 else "dn" if i["s"] <= -0.2 else "flat"}
+                 for i in uniq[:3]]
+        out[th["id"]] = {
+            "status": status,
+            "recent": r1(recent, 2), "base": r1(base, 2),
+            "buzz": r1(buzz, 2), "rising": bool(buzz and buzz >= 1.5), "n": n,
+            "headlines": heads,
+        }
+        log("news watch", th["id"], status, out[th["id"]]["recent"], out[th["id"]]["base"], n)
+    label = {"gdelt": "GDELT", "rss": "Google News"}.get(src or "", None)
+    if not label and any(v["headlines"] for v in out.values()):
+        label = "Google News"
+    return out, label
 
 
 # ------------------------------------------------------------------ maths helpers
@@ -697,6 +889,7 @@ def main():
             "end": qe.isoformat(), "asOf": asof_ts.date().isoformat(),
             "generated": dt.datetime.now(dt.timezone.utc).replace(microsecond=0, tzinfo=None).isoformat() + "Z",
             "method": {"weights": weights, "news": news_ok, "macro": macro_ok,
+                       "newsSource": {"gdelt": "GDELT", "rss": "Google News"}.get(_SOURCE or "") if news_ok else None,
                        "corrMax": CORR_MAX, "universe": len(frozen)},
             "used": used, "themes": frozen,
         }
@@ -736,6 +929,19 @@ def main():
         spark = weekly_spark(p, last_ts)
         themes.append({**t, "perf": perf, "vsWorld": vs, "since": since, "spark": spark})
 
+    # weekly News Watch for the Top 5 (picks stay frozen; this only flags the news)
+    by_cfg = {th["id"]: th for th in cfg["themes"]}
+    picks = [by_cfg.get(t["id"], {"id": t["id"], "name": t["name"]})
+             for t in sorted(themes, key=lambda t: t.get("topRank") or 99) if t.get("topRank")]
+    watch, watch_src = {}, None
+    try:
+        watch, watch_src = news_watch(picks, today)
+    except Exception as e:  # noqa: BLE001
+        log("news watch failed:", e)
+    for t in themes:
+        if t["id"] in watch:
+            t["newsWatch"] = watch[t["id"]]
+
     wspark = weekly_spark(bench, last_ts)
     wk_dates = bench[bench.index <= last_ts].resample("W-FRI").last().dropna().index[-53:]
     spark_start = int(sum(1 for d in wk_dates if d < a_ts))
@@ -765,7 +971,10 @@ def main():
         "method": state["method"],
         "themes": themes,
         "track": {"last": track[-1] if track else None, "history": track, "cumulative": cum},
-        "sources": "Yahoo Finance, GDELT" if state["method"].get("news") else "Yahoo Finance",
+        "newsWeek": {"from": (today - dt.timedelta(days=7)).isoformat(), "to": today.isoformat(),
+                     "source": watch_src} if watch else None,
+        "sources": ", ".join(["Yahoo Finance"] + sorted({x for x in (
+            state["method"].get("newsSource"), watch_src) if x})),
     }
     tmp = OUT.with_suffix(".tmp")
     tmp.write_text(json.dumps(feed, separators=(",", ":"), allow_nan=False))

@@ -41,8 +41,8 @@ jobs:
       - name: Run engine
         timeout-minutes: 40
         run: |
-          # a change to the engine or the theme list recomputes this quarter
-          if [ "${{ inputs.rebuild }}" = "true" ] || [ "${{ github.event_name }}" = "push" ]; then
+          # the quarter's picks are only recomputed when asked (Run workflow + rebuild)
+          if [ "${{ inputs.rebuild }}" = "true" ]; then
             python engine.py --rebuild
           else
             python engine.py
