@@ -1,7 +1,7 @@
 # EB Outlook — moteur trimestriel
 
 Ce moteur calcule l'Investment Outlook d'Economic Bearings et publie `eb-outlook.json`, que le composant Framer **EB Outlook** affiche.
-Tout est gratuit : GitHub Actions pour le calcul, GitHub Pages pour l'hébergement, et des données publiques sans clé API (Yahoo Finance, FRED, GDELT).
+Tout est gratuit : GitHub Actions pour le calcul, GitHub Pages pour l'hébergement, et des données publiques sans clé API (Yahoo Finance, Google News, GDELT, FRED en secours).
 
 ## Mise en route (une seule fois, environ 10 minutes)
 
@@ -59,6 +59,18 @@ Chaque thème est un panier équipondéré de ses proxies, en dollars. Il reçoi
 **Niveau de risque affiché :** Low si la volatilité est sous 18 % par an, Medium jusqu'à 28 %, High au-delà.
 
 Les poids se règlent dans `engine.py` (liste `PILLARS`).
+
+## News Watch (chaque semaine)
+
+Chaque lundi, le moteur lit les titres Google News de la semaine pour les 5 thèmes du Top 5. Il les note avec VADER, complété par une liste de mots financiers, et compare le résultat aux 4 semaines précédentes :
+- **Positive** / **Neutral** / **Negative** sur chaque carte ;
+- les 3 titres qui expliquent ce statut, avec un lien vers la source, dans l'onglet *News*.
+
+Les 5 thèmes ne changent pas pendant le trimestre : c'est un signal d'alerte, pas un nouveau classement.
+Pour améliorer la recherche d'un thème, modifiez son champ `"news"` dans `themes.json`.
+
+Le pilier **News** du classement trimestriel utilise GDELT s'il répond. Sinon, il passe automatiquement sur Google News.
+Un `push` relance seulement la mise à jour hebdomadaire. Pour recalculer le trimestre, utilisez *Run workflow* et cochez *rebuild*.
 
 ## Limites à connaître
 

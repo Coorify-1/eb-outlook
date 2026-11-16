@@ -37,6 +37,16 @@ type Risk = {
     dist200?: number | null
     corr?: number | null
 }
+type Headline = { t: string; url?: string; src?: string; date?: string; tone?: Tone }
+type NewsWatch = {
+    status: "positive" | "neutral" | "negative"
+    recent?: number | null
+    base?: number | null
+    buzz?: number | null
+    rising?: boolean
+    n?: number
+    headlines?: Headline[]
+}
 type Theme = {
     id: string
     name: string
@@ -58,6 +68,7 @@ type Theme = {
     since?: number | null
     spark?: number[]
     skipped?: string
+    newsWatch?: NewsWatch
 }
 type TrackQ = {
     key: string
@@ -79,6 +90,7 @@ type Feed = {
     regime?: { label: string; score?: number; note?: string }
     world?: { name?: string; ticker?: string; since?: number | null; perf?: Perf; spark?: number[] }
     sparkStart?: number
+    newsWeek?: { from: string; to: string; source?: string | null } | null
     method?: { weights?: Record<string, number>; universe?: number; news?: boolean; macro?: boolean }
     themes: Theme[]
     track?: {
@@ -319,6 +331,19 @@ function Tags({ tags, max = 3 }: { tags?: { t: string; tone?: Tone }[]; max?: nu
     )
 }
 
+function NewsBadge({ w, tx, rising = true }: { w?: NewsWatch; tx: Record<string, string>; rising?: boolean }) {
+    if (!w) return <span className="ebo-meta">—</span>
+    const t: Tone = w.status === "positive" ? "up" : w.status === "negative" ? "dn" : "flat"
+    const lab = w.status === "positive" ? tx.newsPositive : w.status === "negative" ? tx.newsNegative : tx.newsNeutral
+    return (
+        <span className="ebo-news">
+            <i className={t} aria-hidden />
+            <span className={"ebo-newstxt " + t}>{lab}</span>
+            {rising && w.rising && <span className="ebo-rising">· {tx.rising}</span>}
+        </span>
+    )
+}
+
 // Sparkline: theme (ink) and world (muted, dashed), both rebased to 100,
 // with a thin tick where the outlook started.
 function Spark({
@@ -485,6 +510,12 @@ function Card({ t, sel, onPick, big, c }: { t: Theme; sel: boolean; onPick: () =
                 <span className="ebo-lab">{c.since}</span>
                 <Pct v={t.since} digits={1} />
             </div>
+            {p.showNews !== false && t.newsWatch && (
+                <div className="ebo-kv">
+                    <span className="ebo-lab">{tx.newsLabel}</span>
+                    <NewsBadge w={t.newsWatch} tx={tx} rising={false} />
+                </div>
+            )}
             {p.showTags !== false && <Tags tags={t.tags} />}
             <span className="ebo-open">
                 {sel ? tx.close : tx.open}
@@ -603,6 +634,7 @@ function ThemeTable({
     const { tx, p } = c
     const icon = Math.round(Math.max(24, Math.min(64, Number(p.iconSize) || 36)) * 0.7)
     const heads = (items[0]?.pillars || []).slice(0, 3)
+    const showNews = mode === "top" && p.showNews !== false && items.some((t) => t.newsWatch)
     return (
         <table className={"ebo-tbl" + (compact ? " is-compact" : "")}>
             <thead>
@@ -617,6 +649,7 @@ function ThemeTable({
                             </th>
                         ))}
                     {!compact && <th className="c-risk">{tx.riskLabel}</th>}
+                    {!compact && showNews && <th className="c-news">{tx.newsLabel}</th>}
                     <th className="r c-since">{c.since}</th>
                     {!compact && <th className="r c-move">{tx.vsLast}</th>}
                 </tr>
@@ -662,6 +695,11 @@ function ThemeTable({
                                     <RiskDots level={t.risk?.level} tx={tx} />
                                 </td>
                             )}
+                            {!compact && showNews && (
+                                <td className="c-news">
+                                    <NewsBadge w={t.newsWatch} tx={tx} rising={false} />
+                                </td>
+                            )}
                             <td className="r c-since">
                                 <Pct v={t.since} />
                             </td>
@@ -698,11 +736,15 @@ function Detail({ t, onClose, c }: { t: Theme; onClose: () => void; c: Ctx }) {
             } catch {}
         }
     }, [t.id])
+    React.useEffect(() => {
+        if (tab === "news" && !t.newsWatch) setTab("overview")
+    }, [t.id])
     const n = feed.method?.universe || feed.themes.length
     const TABS = [
         { v: "overview", t: tx.tOverview },
         { v: "score", t: tx.tScore },
         { v: "risks", t: tx.tRisks },
+        ...(t.newsWatch ? [{ v: "news", t: tx.tNews }] : []),
     ]
     const perfRows: [keyof Perf, string][] = [
         ["m1", tx.p1m],
@@ -908,6 +950,52 @@ function Detail({ t, onClose, c }: { t: Theme; onClose: () => void; c: Ctx }) {
                                 ))}
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            )}
+            {tab === "news" && t.newsWatch && (
+                <div className="ebo-dgrid">
+                    <div className="ebo-dleft">
+                        <div className="ebo-caps">{tx.newsLabel}</div>
+                        <div className="ebo-bignews">
+                            <NewsBadge w={t.newsWatch} tx={tx} rising={false} />
+                        </div>
+                        <div className="ebo-meta ebo-newsmeta">
+                            {feed.newsWeek
+                                ? fill(tx.newsMeta, { a: fmtDay(feed.newsWeek.from), b: fmtDay(feed.newsWeek.to), n: t.newsWatch.n || 0 })
+                                : ""}
+                            {t.newsWatch.rising && <span className="ebo-rising"> · {tx.rising}</span>}
+                        </div>
+                        <p className="ebo-bio">{tx.newsHint}</p>
+                    </div>
+                    <div className="ebo-dright">
+                        <div className="ebo-row">
+                            <span className="ebo-caps">{tx.headlines}</span>
+                            {feed.newsWeek?.source && (
+                                <span className="ebo-meta">{fill(tx.newsSource, { s: feed.newsWeek.source })}</span>
+                            )}
+                        </div>
+                        {t.newsWatch.headlines && t.newsWatch.headlines.length ? (
+                            <div className="ebo-heads">
+                                {t.newsWatch.headlines.map((h, i) => (
+                                    <div className="ebo-head1" key={i}>
+                                        <i className={h.tone || "flat"} aria-hidden />
+                                        <span>
+                                            {h.url ? (
+                                                <a className="ebo-hlink" href={h.url} target="_blank" rel="noopener noreferrer">
+                                                    {h.t}
+                                                </a>
+                                            ) : (
+                                                <span className="ebo-hlink">{h.t}</span>
+                                            )}
+                                            <span className="ebo-msub">{[h.src, fmtDay(h.date)].filter(Boolean).join(" · ")}</span>
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="ebo-note">{tx.noHeadlines}</p>
+                        )}
                     </div>
                 </div>
             )}
@@ -1458,6 +1546,50 @@ const S_ROWS: S[] = [
     ["restaurants", "Restaurants", "Consumer", "fork", [30, 36, 34, 82, 38, 46], "low", 14.2, -1.2, -0.4, [{ t: "Low volatility", tone: "up" }], [{ t: "MCD", n: "McDonald's" }, { t: "CMG", n: "Chipotle" }, { t: "YUM", n: "Yum! Brands" }, { t: "SBUX", n: "Starbucks" }], undefined],
     ["fashion", "Fashion & Apparel", "Consumer", "shirt", [22, 26, 30, 50, 34, 36], "medium", 23.5, -9.6, -2.7, [{ t: "Downtrend", tone: "dn" }, { t: "Negative news", tone: "dn" }], [{ t: "ITX.MC", n: "Inditex" }, { t: "NKE", n: "Nike" }, { t: "ADS.DE", n: "adidas" }, { t: "9983.T", n: "Fast Retailing" }], undefined],
 ]
+// Illustrative headlines (invented for the design, no real source)
+const SAMPLE_NEWS: Record<string, NewsWatch> = {
+    semis: {
+        status: "negative", recent: -0.21, base: 0.06, n: 64, rising: true,
+        headlines: [
+            { t: "Chip stocks slide as a top executive warns on next year's demand", src: "Sample source", date: "2026-11-13", tone: "dn" },
+            { t: "Export rules tighten again for advanced processors", src: "Sample source", date: "2026-11-12", tone: "dn" },
+            { t: "Data-center orders stay strong, suppliers say", src: "Sample source", date: "2026-11-10", tone: "up" },
+        ],
+    },
+    defense: {
+        status: "positive", recent: 0.24, base: 0.11, n: 41,
+        headlines: [
+            { t: "European defence budgets set for another record year", src: "Sample source", date: "2026-11-14", tone: "up" },
+            { t: "Order books at major contractors keep growing", src: "Sample source", date: "2026-11-11", tone: "up" },
+            { t: "Supply chains remain the main bottleneck", src: "Sample source", date: "2026-11-09", tone: "flat" },
+        ],
+    },
+    electro: {
+        status: "neutral", recent: 0.08, base: 0.07, n: 33,
+        headlines: [
+            { t: "Utilities plan higher grid spending through 2030", src: "Sample source", date: "2026-11-13", tone: "up" },
+            { t: "Transformer shortage persists into next year", src: "Sample source", date: "2026-11-12", tone: "flat" },
+            { t: "Grid operators publish winter outlook", src: "Sample source", date: "2026-11-10", tone: "flat" },
+        ],
+    },
+    nuclear: {
+        status: "neutral", recent: 0.05, base: 0.09, n: 28, rising: true,
+        headlines: [
+            { t: "New reactor projects move ahead in Asia and Europe", src: "Sample source", date: "2026-11-14", tone: "up" },
+            { t: "Uranium price steadies after October swings", src: "Sample source", date: "2026-11-12", tone: "flat" },
+            { t: "Regulator delays review of small reactor design", src: "Sample source", date: "2026-11-09", tone: "dn" },
+        ],
+    },
+    gold: {
+        status: "positive", recent: 0.19, base: 0.04, n: 52,
+        headlines: [
+            { t: "Gold rallies as central banks keep buying", src: "Sample source", date: "2026-11-14", tone: "up" },
+            { t: "Miners report record margins for the quarter", src: "Sample source", date: "2026-11-12", tone: "up" },
+            { t: "Dollar weakness supports precious metals", src: "Sample source", date: "2026-11-10", tone: "up" },
+        ],
+    },
+}
+
 const SAMPLE: Feed = (() => {
     const themes: Theme[] = S_ROWS.map((r, i) => {
         const pillars = PW.map((w, k) => ({ key: w[0], label: w[1], weight: w[2], score: r[4][k] }))
@@ -1503,6 +1635,7 @@ const SAMPLE: Feed = (() => {
         else if (n < 5) {
             t.topRank = ++n
             t.prevRank = prev[t.id] === undefined ? null : prev[t.id]
+            t.newsWatch = SAMPLE_NEWS[t.id]
         }
         t.prevAllRank = Math.max(1, t.rank + ((t.rank * 7) % 5) - 2)
     })
@@ -1517,6 +1650,7 @@ const SAMPLE: Feed = (() => {
         regime: { label: "Risk-on", score: 75, note: "World stocks above 200-day average, credit spreads narrowing" },
         world: { name: "iShares MSCI ACWI ETF", ticker: "ACWI", since: 2.14, perf: { m1: 1.1, m3: 3.4, m6: 7.9, m12: 14.6 }, spark: walk(4242, 14.6, 14) },
         sparkStart: 46,
+        newsWeek: { from: "2026-11-08", to: "2026-11-15", source: "Google News" },
         method: { weights: { momentum: 30, trend: 20, strength: 15, risk: 15, news: 10, macro: 10 }, universe: 38, news: true, macro: true },
         themes,
         track: {
@@ -1547,7 +1681,7 @@ const SAMPLE: Feed = (() => {
             ],
             cumulative: { quarters: 2, picks: 9.69, world: 9.01, from: "Q2 2026" },
         },
-        sources: "Yahoo Finance, FRED, GDELT",
+        sources: "Yahoo Finance, Google News",
     }
 })()
 
@@ -1647,6 +1781,25 @@ const CSS = `
 
 .ebo-mark{display:inline-flex;flex:none;align-items:center;justify-content:center;overflow:hidden;border-radius:50%;background:var(--ink);color:var(--bg);font-family:var(--fh);letter-spacing:.02em;line-height:1}
 .ebo-mark svg{display:block}
+
+/* news */
+.ebo-news{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ebo-news > i,.ebo-head1 > i{width:7px;height:7px;border-radius:50%;background:var(--mute);flex:none}
+.ebo-news > i.up,.ebo-head1 > i.up{background:var(--up)}
+.ebo-news > i.dn,.ebo-head1 > i.dn{background:var(--dn)}
+.ebo-newstxt{font-size:12px}
+.ebo-newstxt.flat{color:var(--ink)}
+.ebo-rising{font-size:11px;color:var(--link)}
+.ebo-bignews{margin-top:12px}
+.ebo-bignews .ebo-news > i{width:12px;height:12px}
+.ebo-bignews .ebo-newstxt{font-family:var(--fh);font-size:calc(var(--big) * .9)}
+.ebo-newsmeta{margin-top:8px}
+.ebo-heads{margin-top:4px}
+.ebo-head1{display:flex;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--rule)}
+.ebo-head1 > i{transform:translateY(-2px)}
+.ebo-hlink{display:block;font-family:var(--fh);font-size:15px;line-height:1.35;color:var(--ink);text-decoration:none}
+a.ebo-hlink:hover{color:var(--link);text-decoration:underline}
+.ebo-tbl .c-news{width:120px}
 
 /* sparkline */
 .ebo-spark{position:relative;width:100%}
@@ -1781,7 +1934,7 @@ const CSS = `
   .ebo-tbl .c-pil{display:none}
 }
 @container (max-width:640px){
-  .ebo-tbl .c-move,.ebo-tbl .c-risk{display:none}
+  .ebo-tbl .c-move,.ebo-tbl .c-risk,.ebo-tbl .c-news{display:none}
   .ebo-rnote{display:none}
 }
 @container (max-width:560px){
@@ -1870,6 +2023,18 @@ const DEF_TEXTS: Record<string, string> = {
     scoreHint:
         "Each pillar is scored from 0 to 100 against all the themes we follow; the tick marks 50, the middle. The EB Score is their weighted average.",
     riskLabel: "Risk",
+    newsLabel: "News this week",
+    newsPositive: "Positive",
+    newsNeutral: "Neutral",
+    newsNegative: "Negative",
+    rising: "Rising attention",
+    tNews: "News",
+    headlines: "This week's headlines",
+    newsMeta: "{a} – {b} · {n} articles",
+    newsSource: "Source: {s}",
+    newsHint:
+        "Tone of this week's news coverage compared with the four weeks before. The five themes stay fixed for the quarter: this is an early-warning signal, not a change of pick.",
+    noHeadlines: "No headlines this week.",
     riskLow: "Low",
     riskMedium: "Medium",
     riskHigh: "High",
@@ -1904,13 +2069,13 @@ const DEF_TEXTS: Record<string, string> = {
     quarter: "Quarter",
     cumNote: "Since {q} ({n} quarters): picks",
     dataLabel: "Data:",
-    sources: "Yahoo Finance, FRED, GDELT",
-    refresh: "Performance updated weekly · New outlook every quarter",
+    sources: "Yahoo Finance, Google News",
+    refresh: "Performance and news updated weekly · New outlook every quarter",
     details: "Method & disclaimer",
     methodText:
         "EB Outlook Method: at the start of each quarter, {n} investment themes are scored from 0 to 100 against each other on six pillars: Momentum (30%), Trend (20%), Strength vs. world stocks (15%), Risk (15%), News tone (10%) and Macro fit (10%). The five best-scoring themes form the Outlook.",
     methodRules:
-        "The picks are fixed for the whole quarter (Jan 1, Apr 1, Jul 1, Oct 1); only their performance is refreshed weekly. To keep the picks diverse, a theme is skipped when it moved almost in step (correlation above 0.85) with a higher-ranked pick over the past year.",
+        "The picks are fixed for the whole quarter (Jan 1, Apr 1, Jul 1, Oct 1); only their performance and a News Watch (tone of this week's coverage vs. the four weeks before) are refreshed weekly. To keep the picks diverse, a theme is skipped when it moved almost in step (correlation above 0.85) with a higher-ranked pick over the past year.",
     proxiesNote:
         "Each theme is measured with an equal-weighted basket of the ETFs and shares listed under “Measured with”, in US dollars. They are named for transparency only, not as recommendations to buy.",
     notAdvice:
@@ -1934,6 +2099,7 @@ const DEFAULTS: Record<string, any> = {
     showSpark: true,
     showRisk: true,
     showTags: true,
+    showNews: true,
     readerSwitch: true,
     scrollToDetail: true,
     iconSize: 36,
@@ -2013,6 +2179,7 @@ const CONTROLS: Record<string, any> = {
     showSpark: { type: ControlType.Boolean, title: "Mini chart" },
     showRisk: { type: ControlType.Boolean, title: "Risk level" },
     showTags: { type: ControlType.Boolean, title: "Signals" },
+    showNews: { type: ControlType.Boolean, title: "News this week" },
     readerSwitch: { type: ControlType.Boolean, title: "Reader switch", description: "Lets readers switch between Cards and Ranking." },
     scrollToDetail: { type: ControlType.Boolean, title: "Scroll to analysis", description: "Brings the full analysis into view when a theme is opened." },
     iconSize: num("Icon size", 24, 64, 1, { unit: "px" }),
