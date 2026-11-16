@@ -349,7 +349,7 @@ def rss_items(query: str, after: dt.date, before: dt.date) -> list[dict] | None:
         return [{"t": f"{query.strip('()\"')} {rng.choice(words)} story {i}", "url": "https://example.com",
                  "src": "Example News", "date": (before - dt.timedelta(days=int(rng.integers(1, max(2, (before - after).days))))).isoformat(),
                  "s": float(rng.normal(0, 0.35))} for i in range(n)]
-    q = f"{query} after:{after.isoformat()} before:{before.isoformat()}"
+    q = f"{query} {MARKET_CONTEXT} after:{after.isoformat()} before:{before.isoformat()}"
     url = "https://news.google.com/rss/search?" + urllib.parse.urlencode(
         {"q": q, "hl": "en-US", "gl": "US", "ceid": "US:en"})
     for attempt in range(2):
@@ -362,6 +362,9 @@ def rss_items(query: str, after: dt.date, before: dt.date) -> list[dict] | None:
             time.sleep(3)
     return None
 
+
+# keeps Google News on business coverage (e.g. "banks" the sector, not people named Banks)
+MARKET_CONTEXT = "(stocks OR shares OR sector OR industry OR market OR investors)"
 
 _SOURCE: str | None = None
 
@@ -398,7 +401,13 @@ def news_signals(themes: list[dict], asof: dt.date) -> dict[str, dict]:
     mid = asof - dt.timedelta(days=29)
     out = {}
     t0 = time.time()
+    tried = 0
     for th in themes:
+        tried += 1
+        if src == "gdelt" and tried == 6 and len(out) < 3:
+            # GDELT answered the probe but not the themes: redo everything with Google News
+            log("news: GDELT unreliable this run, switching to Google News")
+            return _rss_signals(themes, asof)
         if time.time() - t0 > NEWS_BUDGET_S:
             log("news: time budget reached, remaining themes get a neutral score")
             break
@@ -419,18 +428,35 @@ def news_signals(themes: list[dict], asof: dt.date) -> dict[str, dict]:
                 buzz = float(vr / vp) if vp and vp > 0 else None
             out[th["id"]] = {"tone": float(recent), "toneChg": float(recent - prior), "buzz": buzz}
         else:
-            rec = rss_items(q, mid, asof + dt.timedelta(days=1))
-            time.sleep(0 if SYNTHETIC else 1.5)
-            pri = rss_items(q, start, mid)
-            time.sleep(0 if SYNTHETIC else 1.5)
-            if not rec or len(rec) < 5:
-                continue
-            tr = _mean([i["s"] for i in rec])
-            tp = _mean([i["s"] for i in pri]) if pri and len(pri) >= 5 else tr
-            buzz = None
-            if pri and len(rec) < 95 and len(pri) < 95:
-                buzz = (len(rec) / 30) / (len(pri) / 60)
-            out[th["id"]] = {"tone": tr, "toneChg": tr - tp, "buzz": buzz}
+            return _rss_signals(themes, asof)
+        log("news", th["id"], out[th["id"]])
+    return out
+
+
+def _rss_signals(themes: list[dict], asof: dt.date) -> dict[str, dict]:
+    global _SOURCE
+    _SOURCE = "rss"
+    start = asof - dt.timedelta(days=89)
+    mid = asof - dt.timedelta(days=29)
+    out = {}
+    t0 = time.time()
+    for th in themes:
+        if time.time() - t0 > NEWS_BUDGET_S:
+            log("news: time budget reached, remaining themes get a neutral score")
+            break
+        q = news_query(th)
+        rec = rss_items(q, mid, asof + dt.timedelta(days=1))
+        time.sleep(0 if SYNTHETIC else 1.5)
+        pri = rss_items(q, start, mid)
+        time.sleep(0 if SYNTHETIC else 1.5)
+        if not rec or len(rec) < 5:
+            continue
+        tr = _mean([i["s"] for i in rec])
+        tp = _mean([i["s"] for i in pri]) if pri and len(pri) >= 5 else tr
+        buzz = None
+        if pri and len(rec) < 95 and len(pri) < 95:
+            buzz = (len(rec) / 30) / (len(pri) / 60)
+        out[th["id"]] = {"tone": tr, "toneChg": tr - tp, "buzz": buzz}
         log("news", th["id"], out[th["id"]])
     return out
 
@@ -438,42 +464,26 @@ def news_signals(themes: list[dict], asof: dt.date) -> dict[str, dict]:
 # ---- Weekly News Watch for the Top 5
 
 def news_watch(themes: list[dict], today: dt.date) -> tuple[dict[str, dict], str | None]:
-    """This week's coverage vs the 4 weeks before: status, attention and 3 headlines."""
+    """This week's coverage vs the 4 weeks before: status, attention and 3 headlines.
+    Always Google News: one consistent source, and it gives the headlines."""
     if not themes:
         return {}, None
     w0 = today - dt.timedelta(days=7)
     b0 = today - dt.timedelta(days=35)
-    src = news_source(news_query(themes[0]), today)
     out = {}
     for th in themes:
         q = news_query(th)
         recent = base = buzz = None
-        n = 0
         week = rss_items(q, w0, today + dt.timedelta(days=1)) or []
         time.sleep(0 if SYNTHETIC else 1.5)
-        if src == "gdelt":
-            tone = gdelt_timeline(q, "timelinetone", b0, today)
-            time.sleep(0 if SYNTHETIC else 6)
-            vol = gdelt_timeline(q, "timelinevol", b0, today)
-            time.sleep(0 if SYNTHETIC else 6)
-            if tone is not None and tone.dropna().size >= 14:
-                recent = tone[tone.index >= pd.Timestamp(w0)].mean()
-                base = tone[tone.index < pd.Timestamp(w0)].mean()
-                n = max(len(week), 10)
-            if vol is not None and vol.dropna().size >= 14:
-                vr = vol[vol.index >= pd.Timestamp(w0)].mean()
-                vb = vol[vol.index < pd.Timestamp(w0)].mean()
-                buzz = float(vr / vb) if vb and vb > 0 else None
-            th_d, th_lvl = 1.0, 4.0
-        else:
-            prior = rss_items(q, b0, w0) or []
-            time.sleep(0 if SYNTHETIC else 1.5)
-            n = len(week)
-            recent = _mean([i["s"] for i in week]) if n >= 5 else None
-            base = _mean([i["s"] for i in prior]) if len(prior) >= 5 else None
-            if prior and n < 95 and len(prior) < 95:
-                buzz = (n / 7) / (len(prior) / 28)
-            th_d, th_lvl = 0.07, 0.20
+        prior = rss_items(q, b0, w0) or []
+        time.sleep(0 if SYNTHETIC else 1.5)
+        n = len(week)
+        recent = _mean([i["s"] for i in week]) if n >= 5 else None
+        base = _mean([i["s"] for i in prior]) if len(prior) >= 5 else None
+        if prior and n < 95 and len(prior) < 95:
+            buzz = (n / 7) / (len(prior) / 28)
+        th_d, th_lvl = 0.07, 0.20
         status = "neutral"
         if recent is not None and n >= 5:
             d = recent - (base if base is not None else recent)
@@ -504,9 +514,7 @@ def news_watch(themes: list[dict], today: dt.date) -> tuple[dict[str, dict], str
             "headlines": heads,
         }
         log("news watch", th["id"], status, out[th["id"]]["recent"], out[th["id"]]["base"], n)
-    label = {"gdelt": "GDELT", "rss": "Google News"}.get(src or "", None)
-    if not label and any(v["headlines"] for v in out.values()):
-        label = "Google News"
+    label = "Google News" if any(v["n"] for v in out.values()) else None
     return out, label
 
 

@@ -54,7 +54,7 @@
           "n": "Amplify Cybersecurity ETF"
         }
       ],
-      "news": "cybersecurity"
+      "news": "(cybersecurity OR \"cyber security\")"
     },
     {
       "id": "cloud",
@@ -271,7 +271,7 @@
           "n": "Invesco S&P Global Water Index ETF"
         }
       ],
-      "news": "(\"water utilities\" OR \"water infrastructure\")"
+      "news": "(\"water utilities\" OR \"water infrastructure\" OR \"water technology\")"
     },
     {
       "id": "utilities",
@@ -284,7 +284,7 @@
           "n": "iShares Global Utilities ETF"
         }
       ],
-      "news": "\"electric utilities\""
+      "news": "(\"electric utilities\" OR \"utility stocks\")"
     },
     {
       "id": "defense",
@@ -389,7 +389,7 @@
           "n": "iShares U.S. Transportation ETF"
         }
       ],
-      "news": "(freight OR logistics)"
+      "news": "(freight OR logistics OR railroads OR trucking)"
     },
     {
       "id": "homebuild",
@@ -419,7 +419,7 @@
           "n": "iShares Global Healthcare ETF"
         }
       ],
-      "news": "\"healthcare industry\""
+      "news": "(\"healthcare stocks\" OR \"health insurers\" OR \"healthcare industry\")"
     },
     {
       "id": "biotech",
@@ -651,7 +651,7 @@
           "n": "iShares MSCI Europe Financials ETF"
         }
       ],
-      "news": "(banks OR banking)"
+      "news": "(\"bank stocks\" OR \"banking sector\" OR \"bank earnings\" OR lenders)"
     },
     {
       "id": "insurance",
@@ -664,7 +664,7 @@
           "n": "SPDR S&P Insurance ETF"
         }
       ],
-      "news": "insurers"
+      "news": "(insurers OR \"insurance industry\")"
     },
     {
       "id": "realestate",
